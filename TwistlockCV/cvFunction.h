@@ -24,3 +24,8 @@ public:
 	Mat left;
 	Mat right;
 };
+
+//ÂÖÀªÊ¶±ğ
+class ContourReco {
+
+};
