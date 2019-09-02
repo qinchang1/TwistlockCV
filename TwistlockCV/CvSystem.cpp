@@ -221,14 +221,16 @@ void CvSystem::readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label,c
 
 void CvSystem::splitImg() {
 	if (!frame1.srcFrame.empty()) {
-		split1.fit(frame1.srcFrame); // Í¼Ïñ×óÓÒ·Ö¸î
+		// Í¼Ïñ×óÓÒ·Ö¸î²¢ÊäÈë
+		split1.fit(frame1.srcFrame,frame1.outBinary(bin1.lowThreshold, bin1.highThreshold, bin1.dilatePara, bin1.erodePara, bin1.blurPara)); 
 		if (!split1.isEmpty()) {
 			displayImage(split1.left, ui.leftFrame_Label, 0.5);
 			displayImage(split1.right, ui.rightFrame_Label, 0.5);
 		}
 	}
 	if (!frame2.srcFrame.empty()) {
-		split2.fit(frame2.srcFrame); // Í¼Ïñ×óÓÒ·Ö¸î
+		// Í¼Ïñ×óÓÒ·Ö¸î²¢ÊäÈë
+		split2.fit(frame2.srcFrame, frame2.outBinary(bin2.lowThreshold, bin2.highThreshold, bin2.dilatePara, bin2.erodePara, bin2.blurPara));
 		if (!split2.isEmpty()) {
 			displayImage(split2.left, ui.leftFrame_Label_2, 0.5);
 			displayImage(split2.right, ui.rightFrame_Label_2, 0.5);

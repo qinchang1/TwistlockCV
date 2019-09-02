@@ -40,6 +40,7 @@ private:
 	VideoCapture capture1,capture2;
 	FrameImg frame1, frame2;
 	SplitImg split1, split2;
+	ContourReco contour1_l, contour1_r, contour2_l, contour2_r;
 
 	void displayImage(Mat &src, QLabel *label, double ratio, bool isGray = 0);//display image by label
 	void readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label, const binPara &bin);//transfer frame to label
