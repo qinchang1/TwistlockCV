@@ -1,5 +1,9 @@
 #include "cvFunction.h"
 
+bool ascendSort(vector<Point> a, vector<Point> b) {
+	return a.size() > b.size();
+}
+
 //**************** Class FrameImg ******************//
 
 Mat FrameImg::outGray()
@@ -62,6 +66,10 @@ void ContourReco::fit(const Mat &src, const Mat &bin) {
 		if (itc->size() > 150){
 			if (i>0){
 				Rect rect = boundingRect(*itc);//get the rectangle bounding
+				x = rect.x;
+				y = rect.y;
+				w = rect.width;
+				h = rect.height;
 				rectangle(outImg, rect, { 0, 0, 255 }, 2, 8);//draw the rectangle
 				RotatedRect resultRect;
 				resultRect = minAreaRect(*itc);//get the min area rectangle   
@@ -72,21 +80,15 @@ void ContourReco::fit(const Mat &src, const Mat &bin) {
 				line(outImg, pt[1], pt[2], Scalar(255, 0, 0), 2, 8);
 				line(outImg, pt[2], pt[3], Scalar(255, 0, 0), 2, 8);
 				line(outImg, pt[3], pt[0], Scalar(255, 0, 0), 2, 8);
-				/*
-				cout << "**************形心*************" << endl;
-				cout << "X坐标：" << resultRect.center.x << " Y坐标：" << resultRect.center.y << " 偏转角度：" << resultRect.angle << endl;
-				cout << "*******************************" << endl;
-				*/
+				cenx = resultRect.center.x;
+				ceny = resultRect.center.y;
+				angle = resultRect.angle;
 			}
 			i++;
 		}
 		++itc;
 	}
 	empty = false;
-}
-
-bool ascendSort(vector<Point> a, vector<Point> b){
-	return a.size() > b.size();
 }
 
 bool ContourReco::isEmpty() {

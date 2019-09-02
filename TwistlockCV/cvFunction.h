@@ -31,7 +31,6 @@ public:
 	Mat right;
 	Mat rightBin;
 private:
-	bool ascendSort(vector<Point> a, vector<Point> b);
 	bool empty = true;
 };
 
@@ -41,7 +40,8 @@ public:
 	void fit(const Mat &src, const Mat &bin);
 	bool isEmpty();
 	Mat outImg;
-	
+	int x, y, w, h;
+	int cenx, ceny, angle;
 private:
 	bool empty = true;
 };

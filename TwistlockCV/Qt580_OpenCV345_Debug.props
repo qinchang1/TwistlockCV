@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>D:\Qt\Qt5.8.0\5.8\msvc2015_64\include;D:\opencv\build\include;D:\opencv\build\include\opencv;D:\opencv\build\include\opencv2;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Qt\Qt5.8.0\5.8\msvc2015_64\include;D:\opencv\build\include;D:\opencv\build\include\opencv;D:\opencv\build\include\opencv2;F:\project\TwistlockCV\TwistlockCV;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Qt\Qt5.8.0\5.8\msvc2015_64\lib;D:\opencv\build\x64\vc14\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>

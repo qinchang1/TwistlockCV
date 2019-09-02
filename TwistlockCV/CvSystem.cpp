@@ -142,9 +142,9 @@ void CvSystem::on_capType_comboBox_2_currentIndexChanged(){
 // 图像提取按钮
 void CvSystem::on_start_Button_clicked() {
 	appendText("开始处理...");
-	appendText("【开始】图像分割...");
+	appendText("【开始】图像处理...");
 	splitImg();
-	appendText("【完成】图像分割");
+	appendText("【完成】图像处理");
 }
 
 // 停止按钮
@@ -224,8 +224,16 @@ void CvSystem::splitImg() {
 		// 图像左右分割并输入
 		split1.fit(frame1.srcFrame,frame1.outBinary(bin1.lowThreshold, bin1.highThreshold, bin1.dilatePara, bin1.erodePara, bin1.blurPara)); 
 		if (!split1.isEmpty()) {
-			displayImage(split1.left, ui.leftFrame_Label, 0.5);
-			displayImage(split1.right, ui.rightFrame_Label, 0.5);
+			// 图像取轮廓，最小轮廓框选
+			contour1_l.fit(split1.left, split1.leftBin);
+			contour1_r.fit(split1.right, split1.rightBin);
+			// 显示框选后的图像
+			if (!contour1_l.isEmpty()) {
+				displayImage(contour1_l.outImg, ui.leftFrame_Label, 0.5);
+			}
+			if (!contour1_r.isEmpty()) {
+				displayImage(contour1_r.outImg, ui.rightFrame_Label, 0.5);
+			}
 		}
 	}
 	if (!frame2.srcFrame.empty()) {
