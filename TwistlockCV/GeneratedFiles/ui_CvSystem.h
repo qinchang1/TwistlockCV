@@ -63,7 +63,7 @@ public:
     QLabel *label_A_2;
     QLabel *label_7;
     QComboBox *capType_comboBox;
-    QPushButton *Extract_Button;
+    QPushButton *start_Button;
     QPushButton *display_Button;
     QPushButton *stop_Button;
     QProgressBar *extract_progressBar;
@@ -104,7 +104,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(10, 10, 101, 16));
+        label->setGeometry(QRect(10, 10, 141, 16));
         displayStatus_Label = new QLabel(centralWidget);
         displayStatus_Label->setObjectName(QStringLiteral("displayStatus_Label"));
         displayStatus_Label->setGeometry(QRect(570, 10, 80, 20));
@@ -172,7 +172,7 @@ public:
         displayStatus_Label_2->setAlignment(Qt::AlignCenter);
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(10, 280, 101, 16));
+        label_2->setGeometry(QRect(10, 280, 141, 16));
         videoLabel_2 = new QLabel(centralWidget);
         videoLabel_2->setObjectName(QStringLiteral("videoLabel_2"));
         videoLabel_2->setGeometry(QRect(10, 300, 640, 240));
@@ -244,13 +244,13 @@ public:
         font1.setPointSize(10);
         capType_comboBox->setFont(font1);
         capType_comboBox->setAutoFillBackground(false);
-        Extract_Button = new QPushButton(centralWidget);
-        Extract_Button->setObjectName(QStringLiteral("Extract_Button"));
-        Extract_Button->setGeometry(QRect(1660, 790, 100, 35));
+        start_Button = new QPushButton(centralWidget);
+        start_Button->setObjectName(QStringLiteral("start_Button"));
+        start_Button->setGeometry(QRect(1660, 790, 100, 35));
         QFont font2;
         font2.setFamily(QString::fromUtf8("\345\256\213\344\275\223"));
         font2.setPointSize(10);
-        Extract_Button->setFont(font2);
+        start_Button->setFont(font2);
         display_Button = new QPushButton(centralWidget);
         display_Button->setObjectName(QStringLiteral("display_Button"));
         display_Button->setGeometry(QRect(1660, 740, 100, 35));
@@ -339,7 +339,7 @@ public:
         CvSystemClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(CvSystemClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1800, 23));
+        menuBar->setGeometry(QRect(0, 0, 1800, 26));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         menu_2 = new QMenu(menuBar);
@@ -361,8 +361,8 @@ public:
 
         retranslateUi(CvSystemClass);
 
-        tabWidget->setCurrentIndex(0);
-        tabWidget_2->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
+        tabWidget_2->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(CvSystemClass);
@@ -404,7 +404,7 @@ public:
          << QApplication::translate("CvSystemClass", "\346\274\224\347\244\272\350\247\206\351\242\221", Q_NULLPTR)
          << QApplication::translate("CvSystemClass", "\346\221\204\345\203\217\345\244\2641", Q_NULLPTR)
         );
-        Extract_Button->setText(QApplication::translate("CvSystemClass", "\345\233\276\345\203\217\346\217\220\345\217\226", Q_NULLPTR));
+        start_Button->setText(QApplication::translate("CvSystemClass", "\345\233\276\345\203\217\346\217\220\345\217\226", Q_NULLPTR));
         display_Button->setText(QApplication::translate("CvSystemClass", "\350\247\206\351\242\221\345\257\274\345\205\245", Q_NULLPTR));
         stop_Button->setText(QApplication::translate("CvSystemClass", "\345\201\234\346\255\242", Q_NULLPTR));
         matchType_Label->setText(QApplication::translate("CvSystemClass", "\345\214\271\351\205\215\347\256\227\346\263\225", Q_NULLPTR));

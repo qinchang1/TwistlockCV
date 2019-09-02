@@ -22,6 +22,18 @@ CvSystem::CvSystem(QWidget *parent)
 //***************** Interface Function *******************//
 //********************************************************//
 
+// 显示框加一行文字
+void CvSystem::appendText(const QString &str) {
+	QString temp = str;
+	ui.textBrowser->append(temp);
+}
+
+// 显示框清空显示文字
+void CvSystem::setText(const QString &str) {
+	QString temp = str;
+	ui.textBrowser->setText(temp);
+}
+
 void CvSystem::on_preSet_Action_triggered()
 {
 	preWin.show();//open pretreatment window
@@ -127,8 +139,16 @@ void CvSystem::on_capType_comboBox_2_currentIndexChanged(){
 	}
 }
 
-void CvSystem::on_stop_Button_clicked()
-{
+// 图像提取按钮
+void CvSystem::on_start_Button_clicked() {
+	appendText("开始处理...");
+	appendText("【开始】图像分割...");
+	splitImg();
+	appendText("【完成】图像分割");
+}
+
+// 停止按钮
+void CvSystem::on_stop_Button_clicked(){
 	ui.textBrowser->append("视频源导入停止！");
 	isStart = false;
 	// 设置控件可用
@@ -143,8 +163,8 @@ void CvSystem::on_stop_Button_clicked()
 //******************* Video Function *********************//
 //********************************************************//
 
-void CvSystem::displayImage(Mat &src, QLabel *label, double ratio,bool isGray)
-{
+// 显示图像
+void CvSystem::displayImage(Mat &src, QLabel *label, double ratio,bool isGray){
 	if (isGray){
 		Mat tempImage;
 		cvtColor(src, tempImage, CV_GRAY2RGB);//only RGB of Qt
@@ -198,3 +218,20 @@ void CvSystem::readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label,c
 //********************************************************//
 //***************** Detection Function *******************//
 //********************************************************//
+
+void CvSystem::splitImg() {
+	if (!frame1.srcFrame.empty()) {
+		split1.fit(frame1.srcFrame); // 图像左右分割
+		if (!split1.isEmpty()) {
+			displayImage(split1.left, ui.leftFrame_Label, 0.5);
+			displayImage(split1.right, ui.rightFrame_Label, 0.5);
+		}
+	}
+	if (!frame2.srcFrame.empty()) {
+		split2.fit(frame2.srcFrame); // 图像左右分割
+		if (!split2.isEmpty()) {
+			displayImage(split2.left, ui.leftFrame_Label_2, 0.5);
+			displayImage(split2.right, ui.rightFrame_Label_2, 0.5);
+		}
+	}
+}

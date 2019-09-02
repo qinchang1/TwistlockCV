@@ -18,14 +18,22 @@ public:
 	Mat outBinary(const int& lowThreshold,const int& highThreshold,const int& dilatePara,const int& erodePara,const int& blurPara);//output binary image
 };
 
+// 左右分割
 class SplitImg {
 public:
-	SplitImg(Mat src);
+	void fit(const Mat &src);
+	bool isEmpty();
 	Mat left;
 	Mat right;
+private:
+	bool empty = true;
 };
 
-//轮廓识别
+// 轮廓识别
 class ContourReco {
-
+public:
+	void fit(const Mat &src);
+	bool isEmpty();
+private:
+	bool empty = true;
 };

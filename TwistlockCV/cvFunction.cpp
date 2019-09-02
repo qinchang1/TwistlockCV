@@ -33,7 +33,22 @@ Mat FrameImg::outBinary(const int& lowThreshold, const int& highThreshold, const
 }
 
 //******************* class SplitImg ********************//
-SplitImg::SplitImg(Mat src) {
+void SplitImg::fit(const Mat &src) {
 	left = src(Rect(0, 0, src.size().width / 2, src.size().height));
 	right = src(Rect(src.size().width / 2, 0, src.size().width / 2, src.size().height));
+	empty = false;
+}
+
+bool SplitImg::isEmpty() {
+	return empty;
+}
+
+//******************* class ContourReco ********************//
+void ContourReco::fit(const Mat &src) {
+
+	empty = false;
+}
+
+bool ContourReco::isEmpty() {
+	return empty;
 }

@@ -30,8 +30,7 @@ class CvSystem : public QMainWindow
 
 public:
 	CvSystem(QWidget *parent = Q_NULLPTR);
-	void displayImage(Mat &src, QLabel *label, double ratio,bool isGray = 0);//display image by label
-	void readFrame(VideoCapture &capture,FrameImg &frame, QLabel *label, const binPara &bin);//transfer frame to label
+	
 
 private:
 	Ui::CvSystemClass ui;
@@ -40,7 +39,13 @@ private:
 	QTimer *timer;
 	VideoCapture capture1,capture2;
 	FrameImg frame1, frame2;
+	SplitImg split1, split2;
 
+	void displayImage(Mat &src, QLabel *label, double ratio, bool isGray = 0);//display image by label
+	void readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label, const binPara &bin);//transfer frame to label
+	void appendText(const QString &str);
+	void setText(const QString &str);
+	void splitImg(); // ·Ö¸îÍ¼Ïñ
 
 private slots:
 	void outputFrame();
@@ -48,6 +53,7 @@ private slots:
 	void on_capType_comboBox_currentIndexChanged();
 	void on_capType_comboBox_2_currentIndexChanged();
 	void on_stop_Button_clicked();
+	void on_start_Button_clicked();
 
 	void on_preSet_Action_triggered();
 };
