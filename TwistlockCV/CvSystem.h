@@ -17,7 +17,9 @@
 #include <iostream>
 #include "ui_CvSystem.h"
 #include "cvFunction.h"
+#include "cvThread.h"
 #include "pre.h"
+#include "para.h"
 
 using namespace std;
 
@@ -30,17 +32,15 @@ class CvSystem : public QMainWindow
 
 public:
 	CvSystem(QWidget *parent = Q_NULLPTR);
-	
 
 private:
 	Ui::CvSystemClass ui;
 	preWindow preWin;
+	ParaWindow paraWin;
 
 	QTimer *timer;
 	VideoCapture capture1,capture2;
 	FrameImg frame1, frame2;
-	SplitImg split1, split2;
-	ContourReco contour1_l, contour1_r, contour2_l, contour2_r;
 
 	void displayImage(Mat &src, QLabel *label, double ratio, bool isGray = 0);//display image by label
 	void readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label, const binPara &bin);//transfer frame to label
@@ -57,6 +57,7 @@ private slots:
 	void on_start_Button_clicked();
 
 	void on_preSet_Action_triggered();
+	void on_paraSet_Action_triggered();
 };
 
 enum CapType
@@ -65,3 +66,4 @@ enum CapType
 	SIMPLE,
 	CAMERA
 };
+

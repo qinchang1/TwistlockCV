@@ -36,6 +36,17 @@ Mat FrameImg::outBinary(const int& lowThreshold, const int& highThreshold, const
 	return tempBinary;
 }
 
+//******************* class ImgClass ********************//
+void ImgClass::addImg(const Mat &src, const Mat &bin) {
+	srcImg = src.clone();
+	binImg = bin.clone();
+	empty = false;
+}
+
+bool ImgClass::isEmpty() {
+	return empty;
+}
+
 //******************* class SplitImg ********************//
 void SplitImg::fit(const Mat &src, const Mat &bin) {
 	srcImg = src.clone();
@@ -92,5 +103,13 @@ void ContourReco::fit(const Mat &src, const Mat &bin) {
 }
 
 bool ContourReco::isEmpty() {
+	return empty;
+}
+
+//******************* class FeaturePoint ********************//
+
+
+
+bool FeaturePoint::isEmpty() {
 	return empty;
 }

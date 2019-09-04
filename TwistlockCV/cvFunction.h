@@ -19,6 +19,17 @@ public:
 	Mat outBinary(const int& lowThreshold,const int& highThreshold,const int& dilatePara,const int& erodePara,const int& blurPara);//output binary image
 };
 
+// 摄像头提取的图像
+class ImgClass {
+public:
+	void addImg(const Mat &src, const Mat &bin);
+	bool isEmpty();
+	Mat srcImg;
+	Mat binImg;
+private:
+	bool empty = true;
+};
+
 // 左右分割输入（包含二值图像）
 class SplitImg {
 public:
@@ -42,6 +53,16 @@ public:
 	Mat outImg;
 	int x, y, w, h;
 	int cenx, ceny, angle;
+private:
+	bool empty = true;
+};
+
+// 特征点检测
+class FeaturePoint {
+public:
+	void fit(const Mat &src);
+	bool isEmpty();
+
 private:
 	bool empty = true;
 };

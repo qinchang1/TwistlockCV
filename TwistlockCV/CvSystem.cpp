@@ -8,11 +8,21 @@ bool isStart = false; //是否已经开始
 //****** Binary parameter *****//
 extern binPara bin1;
 extern binPara bin2;
-//*****************************//
+
+//******** 提取的图像 *********//
+extern ImgClass cam1;
+extern ImgClass cam2;
+
+//******** 处理后的图像 *********//
+extern SplitImg split1;
+extern SplitImg split2;
+extern ContourReco contour1_l;
+extern ContourReco contour1_r;
+extern ContourReco contour2_l;
+extern ContourReco contour2_r;
 
 CvSystem::CvSystem(QWidget *parent)
-	: QMainWindow(parent)
-{
+	: QMainWindow(parent) {
 	ui.setupUi(this);
 	timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(outputFrame()));
@@ -34,9 +44,12 @@ void CvSystem::setText(const QString &str) {
 	ui.textBrowser->setText(temp);
 }
 
-void CvSystem::on_preSet_Action_triggered()
-{
+void CvSystem::on_preSet_Action_triggered() {
 	preWin.show();//open pretreatment window
+}
+
+void CvSystem::on_paraSet_Action_triggered() {
+	paraWin.show(); // 显示参数配置窗口
 }
 
 //********************************************************//
@@ -143,7 +156,15 @@ void CvSystem::on_capType_comboBox_2_currentIndexChanged(){
 void CvSystem::on_start_Button_clicked() {
 	appendText("开始处理...");
 	appendText("【开始】图像处理...");
-	splitImg();
+	// 放入第一个相机的图片
+	if (!frame1.srcFrame.empty()) {
+		cam1.addImg(frame1.srcFrame, frame1.outBinary(bin1.lowThreshold, bin1.highThreshold, bin1.dilatePara, bin1.erodePara, bin1.blurPara));
+	}
+	// 放入第二个相机的图片
+	if (!frame2.srcFrame.empty()) {
+		cam2.addImg(frame2.srcFrame, frame2.outBinary(bin2.lowThreshold, bin2.highThreshold, bin2.dilatePara, bin2.erodePara, bin2.blurPara));
+	}
+
 	appendText("【完成】图像处理");
 }
 

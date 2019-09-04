@@ -48,12 +48,24 @@
     <ClCompile Include="GeneratedFiles\qrc_TwistlockCV.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="para.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cvThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="CvSystem.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="pre.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="para.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="cvThread.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -81,6 +93,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_pre.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_Para.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
