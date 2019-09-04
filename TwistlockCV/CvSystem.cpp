@@ -240,8 +240,16 @@ void CvSystem::splitImg() {
 		// 图像左右分割并输入
 		split2.fit(frame2.srcFrame, frame2.outBinary(bin2.lowThreshold, bin2.highThreshold, bin2.dilatePara, bin2.erodePara, bin2.blurPara));
 		if (!split2.isEmpty()) {
-			displayImage(split2.left, ui.leftFrame_Label_2, 0.5);
-			displayImage(split2.right, ui.rightFrame_Label_2, 0.5);
+			// 图像取轮廓，最小轮廓框选
+			contour2_l.fit(split2.left, split2.leftBin);
+			contour2_r.fit(split2.right, split2.rightBin);
+			// 显示框选后的图像
+			if (!contour2_l.isEmpty()) {
+				displayImage(contour2_l.outImg, ui.leftFrame_Label_2, 0.5);
+			}
+			if (!contour2_r.isEmpty()) {
+				displayImage(contour2_r.outImg, ui.rightFrame_Label_2, 0.5);
+			}
 		}
 	}
 }
