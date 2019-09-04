@@ -116,11 +116,24 @@
   <ItemGroup>
     <ClCompile Include="cvFunction.cpp" />
     <ClCompile Include="CvSystem.cpp" />
+    <ClCompile Include="GeneratedFiles\qrc_CvSystem.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_TwistlockCV.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pre.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="CvSystem.ui" />
+    <QtUic Include="Para.ui" />
     <QtUic Include="pre.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +141,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvFunction.h" />
+    <ClInclude Include="GeneratedFiles\ui_CvSystem.h" />
+    <ClInclude Include="GeneratedFiles\ui_pre.h" />
     <QtMoc Include="pre.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
