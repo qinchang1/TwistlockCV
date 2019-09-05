@@ -42,11 +42,15 @@ private:
 	VideoCapture capture1,capture2;
 	FrameImg frame1, frame2;
 
+	Cam1Thread *cam1fit;
+	Cam2Thread *cam2fit;
+
 	void displayImage(Mat &src, QLabel *label, double ratio, bool isGray = 0);//display image by label
 	void readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label, const binPara &bin);//transfer frame to label
 	void appendText(const QString &str);
 	void setText(const QString &str);
-	void splitImg(); // ·Ö¸îÍ¼Ïñ
+	void showSplitImg1();
+	void showSplitImg2();
 
 private slots:
 	void outputFrame();

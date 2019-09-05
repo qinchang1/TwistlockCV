@@ -50,6 +50,7 @@ class ContourReco {
 public:
 	void fit(const Mat &src, const Mat &bin);
 	bool isEmpty();
+	Mat srcImg;
 	Mat outImg;
 	int x, y, w, h;
 	int cenx, ceny, angle;
@@ -58,11 +59,12 @@ private:
 };
 
 // ÌØÕ÷µã¼ì²â
-class FeaturePoint {
+class FeatureMatch {
 public:
-	void fit(const Mat &src);
+	void fit(const ContourReco &left, const ContourReco &right);
+	Mat leftImg;
+	Mat rightImg;
 	bool isEmpty();
-
 private:
 	bool empty = true;
 };

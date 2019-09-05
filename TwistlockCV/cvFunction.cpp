@@ -64,12 +64,13 @@ bool SplitImg::isEmpty() {
 
 //******************* class ContourReco ********************//
 void ContourReco::fit(const Mat &src, const Mat &bin) {
+	srcImg = src.clone();
 	outImg = src.clone();
 	Mat tempBin = bin.clone();
-	vector< vector< Point> > contours;//save all contours data
+	vector< vector< Point> > contours; //save all contours data
 	vector<Vec4i> hierarchy;
-	findContours(tempBin, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);//find contours
-	sort(contours.begin(), contours.end(), ascendSort);//ascending sort
+	findContours(tempBin, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE); //find contours
+	sort(contours.begin(), contours.end(), ascendSort); //ascending sort
 	vector< vector<Point> >::iterator itc = contours.begin(); //iterator of contour vector
 	int i = 0;
 	while (itc != contours.end()){
@@ -106,10 +107,20 @@ bool ContourReco::isEmpty() {
 	return empty;
 }
 
-//******************* class FeaturePoint ********************//
+//******************* class FeatureMatch ********************//
+void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
+	leftImg = left.srcImg.clone();
+	rightImg = right.srcImg.clone();
 
+	int minhessian = 1000;//threshold of hessian in SIFT or SURF algorithm 
+	vector<KeyPoint>l_keyPoint, r_keyPoint;
+	Mat l_descriptor, r_descriptor;
 
+	
 
-bool FeaturePoint::isEmpty() {
+	empty = false;
+}
+
+bool FeatureMatch::isEmpty() {
 	return empty;
 }

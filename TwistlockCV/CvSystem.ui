@@ -99,7 +99,7 @@
      <attribute name="title">
       <string>目标检测</string>
      </attribute>
-     <widget class="QLabel" name="detectionFrame_Label">
+     <widget class="QLabel" name="detectionFrame_Label_1">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -130,7 +130,7 @@ background-color: rgb(200, 200, 200);</string>
      <attribute name="title">
       <string>特征点提取</string>
      </attribute>
-     <widget class="QLabel" name="matchFrame_Label">
+     <widget class="QLabel" name="matchFrame_Label_1">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -161,7 +161,7 @@ background-color: rgb(200, 200, 200);</string>
      <attribute name="title">
       <string>左右图像分割</string>
      </attribute>
-     <widget class="QLabel" name="rightFrame_Label">
+     <widget class="QLabel" name="rightFrame_Label_1">
       <property name="geometry">
        <rect>
         <x>330</x>
@@ -187,7 +187,7 @@ background-color: rgb(200, 200, 200);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="leftFrame_Label">
+     <widget class="QLabel" name="leftFrame_Label_1">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -528,63 +528,6 @@ background-color: rgb(200, 200, 200);</string>
       <string>摄像头1</string>
      </property>
     </item>
-   </widget>
-   <widget class="QPushButton" name="start_Button">
-    <property name="geometry">
-     <rect>
-      <x>1660</x>
-      <y>790</y>
-      <width>100</width>
-      <height>35</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>宋体</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>图像提取</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="display_Button">
-    <property name="geometry">
-     <rect>
-      <x>1660</x>
-      <y>740</y>
-      <width>100</width>
-      <height>35</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>宋体</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>视频导入</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="stop_Button">
-    <property name="geometry">
-     <rect>
-      <x>1660</x>
-      <y>840</y>
-      <width>100</width>
-      <height>35</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>宋体</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>停止</string>
-    </property>
    </widget>
    <widget class="QProgressBar" name="extract_progressBar">
     <property name="geometry">
@@ -1173,6 +1116,76 @@ background-color: rgb(200, 200, 200);</string>
      </property>
      <property name="text">
       <string>气阀1：</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>1660</x>
+      <y>700</y>
+      <width>121</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>基本操作</string>
+    </property>
+    <widget class="QPushButton" name="display_Button">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>100</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>宋体</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>视频导入</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="start_Button">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>100</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>宋体</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>图像提取</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="stop_Button">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>100</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>宋体</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>停止</string>
      </property>
     </widget>
    </widget>

@@ -43,12 +43,12 @@ public:
     QLabel *videoLabel;
     QTabWidget *tabWidget;
     QWidget *tab;
-    QLabel *detectionFrame_Label;
+    QLabel *detectionFrame_Label_1;
     QWidget *tab_2;
-    QLabel *matchFrame_Label;
+    QLabel *matchFrame_Label_1;
     QWidget *tab_3;
-    QLabel *rightFrame_Label;
-    QLabel *leftFrame_Label;
+    QLabel *rightFrame_Label_1;
+    QLabel *leftFrame_Label_1;
     QTextBrowser *textBrowser;
     QLabel *displayStatus_Label_2;
     QLabel *label_2;
@@ -64,9 +64,6 @@ public:
     QLabel *label_A_2;
     QLabel *label_7;
     QComboBox *capType_comboBox;
-    QPushButton *start_Button;
-    QPushButton *display_Button;
-    QPushButton *stop_Button;
     QProgressBar *extract_progressBar;
     QLabel *matchType_Label;
     QComboBox *capType_comboBox_2;
@@ -102,6 +99,10 @@ public:
     QLabel *label_26;
     QLabel *label_27;
     QLabel *label_28;
+    QGroupBox *groupBox_2;
+    QPushButton *display_Button;
+    QPushButton *start_Button;
+    QPushButton *stop_Button;
     QMenuBar *menuBar;
     QMenu *menu;
     QMenu *menu_2;
@@ -146,44 +147,44 @@ public:
         tabWidget->setGeometry(QRect(660, 10, 660, 270));
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
-        detectionFrame_Label = new QLabel(tab);
-        detectionFrame_Label->setObjectName(QStringLiteral("detectionFrame_Label"));
-        detectionFrame_Label->setGeometry(QRect(0, 0, 640, 240));
-        detectionFrame_Label->setAutoFillBackground(false);
-        detectionFrame_Label->setStyleSheet(QLatin1String("\n"
+        detectionFrame_Label_1 = new QLabel(tab);
+        detectionFrame_Label_1->setObjectName(QStringLiteral("detectionFrame_Label_1"));
+        detectionFrame_Label_1->setGeometry(QRect(0, 0, 640, 240));
+        detectionFrame_Label_1->setAutoFillBackground(false);
+        detectionFrame_Label_1->setStyleSheet(QLatin1String("\n"
 "background-color: rgb(200, 200, 200);"));
-        detectionFrame_Label->setTextFormat(Qt::AutoText);
-        detectionFrame_Label->setAlignment(Qt::AlignCenter);
+        detectionFrame_Label_1->setTextFormat(Qt::AutoText);
+        detectionFrame_Label_1->setAlignment(Qt::AlignCenter);
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
-        matchFrame_Label = new QLabel(tab_2);
-        matchFrame_Label->setObjectName(QStringLiteral("matchFrame_Label"));
-        matchFrame_Label->setGeometry(QRect(0, 0, 640, 240));
-        matchFrame_Label->setAutoFillBackground(false);
-        matchFrame_Label->setStyleSheet(QLatin1String("\n"
+        matchFrame_Label_1 = new QLabel(tab_2);
+        matchFrame_Label_1->setObjectName(QStringLiteral("matchFrame_Label_1"));
+        matchFrame_Label_1->setGeometry(QRect(0, 0, 640, 240));
+        matchFrame_Label_1->setAutoFillBackground(false);
+        matchFrame_Label_1->setStyleSheet(QLatin1String("\n"
 "background-color: rgb(200, 200, 200);"));
-        matchFrame_Label->setTextFormat(Qt::AutoText);
-        matchFrame_Label->setAlignment(Qt::AlignCenter);
+        matchFrame_Label_1->setTextFormat(Qt::AutoText);
+        matchFrame_Label_1->setAlignment(Qt::AlignCenter);
         tabWidget->addTab(tab_2, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QStringLiteral("tab_3"));
-        rightFrame_Label = new QLabel(tab_3);
-        rightFrame_Label->setObjectName(QStringLiteral("rightFrame_Label"));
-        rightFrame_Label->setGeometry(QRect(330, 0, 320, 240));
-        rightFrame_Label->setAutoFillBackground(false);
-        rightFrame_Label->setStyleSheet(QLatin1String("\n"
+        rightFrame_Label_1 = new QLabel(tab_3);
+        rightFrame_Label_1->setObjectName(QStringLiteral("rightFrame_Label_1"));
+        rightFrame_Label_1->setGeometry(QRect(330, 0, 320, 240));
+        rightFrame_Label_1->setAutoFillBackground(false);
+        rightFrame_Label_1->setStyleSheet(QLatin1String("\n"
 "background-color: rgb(200, 200, 200);"));
-        rightFrame_Label->setTextFormat(Qt::AutoText);
-        rightFrame_Label->setAlignment(Qt::AlignCenter);
-        leftFrame_Label = new QLabel(tab_3);
-        leftFrame_Label->setObjectName(QStringLiteral("leftFrame_Label"));
-        leftFrame_Label->setGeometry(QRect(0, 0, 320, 240));
-        leftFrame_Label->setAutoFillBackground(false);
-        leftFrame_Label->setStyleSheet(QLatin1String("\n"
+        rightFrame_Label_1->setTextFormat(Qt::AutoText);
+        rightFrame_Label_1->setAlignment(Qt::AlignCenter);
+        leftFrame_Label_1 = new QLabel(tab_3);
+        leftFrame_Label_1->setObjectName(QStringLiteral("leftFrame_Label_1"));
+        leftFrame_Label_1->setGeometry(QRect(0, 0, 320, 240));
+        leftFrame_Label_1->setAutoFillBackground(false);
+        leftFrame_Label_1->setStyleSheet(QLatin1String("\n"
 "background-color: rgb(200, 200, 200);"));
-        leftFrame_Label->setTextFormat(Qt::AutoText);
-        leftFrame_Label->setAlignment(Qt::AlignCenter);
+        leftFrame_Label_1->setTextFormat(Qt::AutoText);
+        leftFrame_Label_1->setAlignment(Qt::AlignCenter);
         tabWidget->addTab(tab_3, QString());
         textBrowser = new QTextBrowser(centralWidget);
         textBrowser->setObjectName(QStringLiteral("textBrowser"));
@@ -268,21 +269,6 @@ public:
         font1.setPointSize(10);
         capType_comboBox->setFont(font1);
         capType_comboBox->setAutoFillBackground(false);
-        start_Button = new QPushButton(centralWidget);
-        start_Button->setObjectName(QStringLiteral("start_Button"));
-        start_Button->setGeometry(QRect(1660, 790, 100, 35));
-        QFont font2;
-        font2.setFamily(QString::fromUtf8("\345\256\213\344\275\223"));
-        font2.setPointSize(10);
-        start_Button->setFont(font2);
-        display_Button = new QPushButton(centralWidget);
-        display_Button->setObjectName(QStringLiteral("display_Button"));
-        display_Button->setGeometry(QRect(1660, 740, 100, 35));
-        display_Button->setFont(font2);
-        stop_Button = new QPushButton(centralWidget);
-        stop_Button->setObjectName(QStringLiteral("stop_Button"));
-        stop_Button->setGeometry(QRect(1660, 840, 100, 35));
-        stop_Button->setFont(font2);
         extract_progressBar = new QProgressBar(centralWidget);
         extract_progressBar->setObjectName(QStringLiteral("extract_progressBar"));
         extract_progressBar->setGeometry(QRect(1320, 240, 118, 23));
@@ -350,10 +336,10 @@ public:
         label_8 = new QLabel(centralWidget);
         label_8->setObjectName(QStringLiteral("label_8"));
         label_8->setGeometry(QRect(1520, 930, 270, 22));
-        QFont font3;
-        font3.setFamily(QString::fromUtf8("\346\245\267\344\275\223"));
-        font3.setPointSize(14);
-        label_8->setFont(font3);
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("\346\245\267\344\275\223"));
+        font2.setPointSize(14);
+        label_8->setFont(font2);
         label_8->setLayoutDirection(Qt::LeftToRight);
         logName_Label = new QLabel(centralWidget);
         logName_Label->setObjectName(QStringLiteral("logName_Label"));
@@ -443,6 +429,24 @@ public:
         label_28 = new QLabel(groupBox);
         label_28->setObjectName(QStringLiteral("label_28"));
         label_28->setGeometry(QRect(230, 200, 72, 20));
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        groupBox_2->setGeometry(QRect(1660, 700, 121, 181));
+        display_Button = new QPushButton(groupBox_2);
+        display_Button->setObjectName(QStringLiteral("display_Button"));
+        display_Button->setGeometry(QRect(10, 30, 100, 35));
+        QFont font3;
+        font3.setFamily(QString::fromUtf8("\345\256\213\344\275\223"));
+        font3.setPointSize(10);
+        display_Button->setFont(font3);
+        start_Button = new QPushButton(groupBox_2);
+        start_Button->setObjectName(QStringLiteral("start_Button"));
+        start_Button->setGeometry(QRect(10, 80, 100, 35));
+        start_Button->setFont(font3);
+        stop_Button = new QPushButton(groupBox_2);
+        stop_Button->setObjectName(QStringLiteral("stop_Button"));
+        stop_Button->setGeometry(QRect(10, 130, 100, 35));
+        stop_Button->setFont(font3);
         CvSystemClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(CvSystemClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -486,12 +490,12 @@ public:
         label->setText(QApplication::translate("CvSystemClass", "\350\247\206\351\242\221\350\276\223\345\205\245\357\274\210\344\270\273\346\221\204\357\274\211", Q_NULLPTR));
         displayStatus_Label->setText(QApplication::translate("CvSystemClass", "RGB\345\233\276\345\203\217", Q_NULLPTR));
         videoLabel->setText(QApplication::translate("CvSystemClass", "\350\247\206\351\242\221\350\276\223\345\205\245", Q_NULLPTR));
-        detectionFrame_Label->setText(QApplication::translate("CvSystemClass", "\347\233\256\346\240\207\346\243\200\346\265\213", Q_NULLPTR));
+        detectionFrame_Label_1->setText(QApplication::translate("CvSystemClass", "\347\233\256\346\240\207\346\243\200\346\265\213", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("CvSystemClass", "\347\233\256\346\240\207\346\243\200\346\265\213", Q_NULLPTR));
-        matchFrame_Label->setText(QApplication::translate("CvSystemClass", "\347\211\271\345\276\201\347\202\271\346\217\220\345\217\226", Q_NULLPTR));
+        matchFrame_Label_1->setText(QApplication::translate("CvSystemClass", "\347\211\271\345\276\201\347\202\271\346\217\220\345\217\226", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("CvSystemClass", "\347\211\271\345\276\201\347\202\271\346\217\220\345\217\226", Q_NULLPTR));
-        rightFrame_Label->setText(QApplication::translate("CvSystemClass", "\345\217\263\346\221\204\345\203\217\345\244\264\345\233\276\345\203\217", Q_NULLPTR));
-        leftFrame_Label->setText(QApplication::translate("CvSystemClass", "\345\267\246\346\221\204\345\203\217\345\244\264\345\233\276\345\203\217", Q_NULLPTR));
+        rightFrame_Label_1->setText(QApplication::translate("CvSystemClass", "\345\217\263\346\221\204\345\203\217\345\244\264\345\233\276\345\203\217", Q_NULLPTR));
+        leftFrame_Label_1->setText(QApplication::translate("CvSystemClass", "\345\267\246\346\221\204\345\203\217\345\244\264\345\233\276\345\203\217", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("CvSystemClass", "\345\267\246\345\217\263\345\233\276\345\203\217\345\210\206\345\211\262", Q_NULLPTR));
         displayStatus_Label_2->setText(QApplication::translate("CvSystemClass", "RGB\345\233\276\345\203\217", Q_NULLPTR));
         label_2->setText(QApplication::translate("CvSystemClass", "\350\247\206\351\242\221\350\276\223\345\205\245\357\274\210\345\211\257\346\221\204\357\274\211", Q_NULLPTR));
@@ -511,9 +515,6 @@ public:
          << QApplication::translate("CvSystemClass", "\346\274\224\347\244\272\350\247\206\351\242\221", Q_NULLPTR)
          << QApplication::translate("CvSystemClass", "\346\221\204\345\203\217\345\244\2641", Q_NULLPTR)
         );
-        start_Button->setText(QApplication::translate("CvSystemClass", "\345\233\276\345\203\217\346\217\220\345\217\226", Q_NULLPTR));
-        display_Button->setText(QApplication::translate("CvSystemClass", "\350\247\206\351\242\221\345\257\274\345\205\245", Q_NULLPTR));
-        stop_Button->setText(QApplication::translate("CvSystemClass", "\345\201\234\346\255\242", Q_NULLPTR));
         matchType_Label->setText(QApplication::translate("CvSystemClass", "\345\214\271\351\205\215\347\256\227\346\263\225", Q_NULLPTR));
         capType_comboBox_2->clear();
         capType_comboBox_2->insertItems(0, QStringList()
@@ -551,6 +552,10 @@ public:
         label_26->setText(QApplication::translate("CvSystemClass", "none", Q_NULLPTR));
         label_27->setText(QApplication::translate("CvSystemClass", "none", Q_NULLPTR));
         label_28->setText(QApplication::translate("CvSystemClass", "\346\260\224\351\230\2001\357\274\232", Q_NULLPTR));
+        groupBox_2->setTitle(QApplication::translate("CvSystemClass", "\345\237\272\346\234\254\346\223\215\344\275\234", Q_NULLPTR));
+        display_Button->setText(QApplication::translate("CvSystemClass", "\350\247\206\351\242\221\345\257\274\345\205\245", Q_NULLPTR));
+        start_Button->setText(QApplication::translate("CvSystemClass", "\345\233\276\345\203\217\346\217\220\345\217\226", Q_NULLPTR));
+        stop_Button->setText(QApplication::translate("CvSystemClass", "\345\201\234\346\255\242", Q_NULLPTR));
         menu->setTitle(QApplication::translate("CvSystemClass", "\346\226\207\344\273\266", Q_NULLPTR));
         menu_2->setTitle(QApplication::translate("CvSystemClass", "\345\270\256\345\212\251", Q_NULLPTR));
     } // retranslateUi
