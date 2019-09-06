@@ -20,6 +20,8 @@ extern ContourReco contour1_l;
 extern ContourReco contour1_r;
 extern ContourReco contour2_l;
 extern ContourReco contour2_r;
+extern FeatureMatch match1;
+extern FeatureMatch match2;
 
 // 主界面初始化参数
 CvSystem::CvSystem(QWidget *parent)
@@ -28,6 +30,7 @@ CvSystem::CvSystem(QWidget *parent)
 	timer = new QTimer(this);
 	cam1fit = new Cam1Thread();
 	cam2fit = new Cam2Thread();
+	cam1fit_FM = new Cam1Thread_FM();
 	connect(timer, SIGNAL(timeout()), this, SLOT(outputFrame()));
 	connect(cam1fit, &Cam1Thread::finishSlot, this, &CvSystem::showSplitImg1);
 	connect(cam2fit, &Cam2Thread::finishSlot, this, &CvSystem::showSplitImg2);
@@ -180,10 +183,13 @@ void CvSystem::on_start_Button_clicked() {
 	if (!frame2.srcFrame.empty()) {
 		cam2.addImg(frame2.srcFrame, frame2.outBinary(bin2.lowThreshold, bin2.highThreshold, bin2.dilatePara, bin2.erodePara, bin2.blurPara));
 	}
-	// 开启线程进行处理
+	// 开启线程进行处理图像分割和轮廓
 	cam1fit->start();
 	cam2fit->start();
-	appendText("【完成】图像处理");
+	appendText("【完成】图像分割");
+	// 开启线程进行处理左右图像匹配
+	cam1fit_FM->start();
+	appendText("【完成】图像匹配");
 }
 
 // 停止按钮

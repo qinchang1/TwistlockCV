@@ -8,8 +8,10 @@ ContourReco contour1_l;
 ContourReco contour1_r;
 ContourReco contour2_l;
 ContourReco contour2_r;
+FeatureMatch match1;
+FeatureMatch match2;
 
-// ******************* camera1 ********************** //
+// ******************* camera1 ×óÓÒÍ¼Ïñ·Ö¸î ********************** //
 
 Cam1Thread::Cam1Thread(QObject *parent){}
 
@@ -28,7 +30,7 @@ void Cam1Thread::run(){
 	exec();
 }
 
-// ******************* camera2 ********************** //
+// ******************* camera2 ×óÓÒÍ¼Ïñ·Ö¸î ********************** //
 
 Cam2Thread::Cam2Thread(QObject *parent) {}
 
@@ -42,7 +44,20 @@ void Cam2Thread::run() {
 			contour2_r.fit(split2.right, split2.rightBin);
 		}
 	}
-	// qDebug() << "end2" << "\n";
+	//·¢ËÍ½áÊøÐÅºÅ
+	emit finishSlot();
+	exec();
+}
+
+// ******************* camera1 ×óÓÒÌØÕ÷µãÆ¥Åä ********************** //
+
+Cam1Thread_FM::Cam1Thread_FM(QObject *parent) {}
+
+void Cam1Thread_FM::run() {
+	if (!split1.isEmpty()) {
+		// ÌØÕ÷µãÆ¥Åä
+		match1.fit(contour1_l, contour1_r);
+	}
 	//·¢ËÍ½áÊøÐÅºÅ
 	emit finishSlot();
 	exec();

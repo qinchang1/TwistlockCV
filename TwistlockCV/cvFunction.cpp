@@ -6,8 +6,7 @@ bool ascendSort(vector<Point> a, vector<Point> b) {
 
 //**************** Class FrameImg ******************//
 
-Mat FrameImg::outGray()
-{
+Mat FrameImg::outGray(){
 	Mat grayFrame;
 	cvtColor(srcFrame, grayFrame, CV_BGR2GRAY);//convert to grayscale
 	return grayFrame;
@@ -37,6 +36,7 @@ Mat FrameImg::outBinary(const int& lowThreshold, const int& highThreshold, const
 }
 
 //******************* class ImgClass ********************//
+
 void ImgClass::addImg(const Mat &src, const Mat &bin) {
 	srcImg = src.clone();
 	binImg = bin.clone();
@@ -48,6 +48,7 @@ bool ImgClass::isEmpty() {
 }
 
 //******************* class SplitImg ********************//
+
 void SplitImg::fit(const Mat &src, const Mat &bin) {
 	srcImg = src.clone();
 	binImg = bin.clone();
@@ -63,6 +64,7 @@ bool SplitImg::isEmpty() {
 }
 
 //******************* class ContourReco ********************//
+
 void ContourReco::fit(const Mat &src, const Mat &bin) {
 	srcImg = src.clone();
 	outImg = src.clone();
@@ -108,16 +110,34 @@ bool ContourReco::isEmpty() {
 }
 
 //******************* class FeatureMatch ********************//
+
 void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 	leftImg = left.srcImg.clone();
 	rightImg = right.srcImg.clone();
-
-	int minhessian = 1000;//threshold of hessian in SIFT or SURF algorithm 
-	vector<KeyPoint>l_keyPoint, r_keyPoint;
-	Mat l_descriptor, r_descriptor;
-
+	/*
+	// 高斯光滑
+	GaussianBlur(leftImg, leftImg, Size(3, 3), 0.5);
+	GaussianBlur(rightImg, rightImg, Size(3, 3), 0.5);
+	cout << "高斯光滑好了" << endl;
+	*/
+	// 找出特征点
+	Ptr<Feature2D>f2d = xfeatures2d::SURF::create();
+	vector<KeyPoint> keyPoint1, keyPoint2;
+	/*
+	f2d->detect(leftImg, keyPoint1);
+	f2d->detect(rightImg, keyPoint2);
+	cout << "找到特征点" << endl;
 	
-
+	// 绘制关键点
+	drawKeypoints(leftImg, keyPoint1, leftImg, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+	drawKeypoints(rightImg, keyPoint2, rightImg, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+	cout << "绘制特征点" << endl;
+	// 显示
+	namedWindow("KeyPoints of imageL", 0);
+	namedWindow("KeyPoints of imageR", 0);
+	imshow("KeyPoints of imageL", leftImg);
+	imshow("KeyPoints of imageR", rightImg);
+	*/
 	empty = false;
 }
 

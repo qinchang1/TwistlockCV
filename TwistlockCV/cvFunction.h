@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>  
 #include <algorithm>
 #include <cmath>
@@ -7,6 +8,7 @@
 #include <opencv2/highgui/highgui.hpp>  
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/features2d/features2d.hpp>
+#include <opencv2/xfeatures2d.hpp>
 
 using namespace cv;
 using namespace std;
