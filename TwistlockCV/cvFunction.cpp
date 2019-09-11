@@ -166,18 +166,15 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 		matcher.match(descriptors_1, descriptors_2, matches);
 		// 计算特征点最长和最短匹配距离
 		double maxdist = 0; double mindist = 100;
-		for (int i = 0; i < descriptors_1.rows; i++)
-		{
+		for (int i = 0; i < descriptors_1.rows; i++){
 			double dist = matches[i].distance;
 			if (dist < mindist)mindist = dist;
 			if (dist > maxdist)maxdist = dist;
 		}
 		// 挑选好的匹配点
 		vector<DMatch>goodMatches;
-		for (int i = 0; i < descriptors_1.rows; i++)
-		{
-			if (matches[i].distance<2 * mindist)
-			{
+		for (int i = 0; i < descriptors_1.rows; i++){
+			if (matches[i].distance<2 * mindist){
 				goodMatches.push_back(matches[i]);
 			}
 		}
