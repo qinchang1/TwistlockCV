@@ -44,7 +44,6 @@ private:
 
 	Cam1Thread *cam1fit;
 	Cam2Thread *cam2fit;
-	Cam1Thread_FM *cam1fit_FM;
 
 	void displayImage(Mat &src, QLabel *label, double ratio, bool isGray = 0);//display image by label
 	void readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label, const binPara &bin);//transfer frame to label
@@ -52,6 +51,10 @@ private:
 	void setText(const QString &str);
 	void showSplitImg1();
 	void showSplitImg2();
+	void showMatchImg1();
+	void showMatchImg2();
+	void finishCamThread1();
+	void finishCamThread2();
 
 private slots:
 	void outputFrame();

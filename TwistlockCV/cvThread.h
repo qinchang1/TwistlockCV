@@ -11,7 +11,9 @@ public:
 	Cam1Thread(QObject* parent = nullptr);
 //自定义发送的信号
 signals:
-	void finishSlot();
+	void finishSplit();
+	void finishMatch();
+	void finishAll();
 protected:
 	void run() override;
 };
@@ -23,21 +25,9 @@ public:
 	Cam2Thread(QObject* parent = nullptr);
 	//自定义发送的信号
 signals:
-	void finishSlot();
-protected:
-	void run() override;
-};
-
-// ******************* 左右图像特征点匹配 ********************** //
-
-class Cam1Thread_FM : public QThread
-{
-	Q_OBJECT
-public:
-	Cam1Thread_FM(QObject* parent = nullptr);
-	//自定义发送的信号
-signals:
-	void finishSlot();
+	void finishSplit();
+	void finishMatch();
+	void finishAll();
 protected:
 	void run() override;
 };

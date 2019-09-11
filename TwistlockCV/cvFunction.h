@@ -4,10 +4,11 @@
 #include <vector>  
 #include <algorithm>
 #include <cmath>
-#include <opencv2/core/core.hpp>  
-#include <opencv2/highgui/highgui.hpp>  
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/features2d/features2d.hpp>
+#include <opencv2/core.hpp>  
+#include <opencv2/highgui.hpp>  
+#include <opencv2/imgproc.hpp>
+#include <opencv2/features2d.hpp>
+#include <opencv2/flann.hpp>
 #include <opencv2/xfeatures2d.hpp>
 
 using namespace cv;
@@ -66,6 +67,7 @@ public:
 	void fit(const ContourReco &left, const ContourReco &right);
 	Mat leftImg;
 	Mat rightImg;
+	Mat outImg;
 	bool isEmpty();
 private:
 	bool empty = true;

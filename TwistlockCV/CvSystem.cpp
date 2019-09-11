@@ -30,10 +30,13 @@ CvSystem::CvSystem(QWidget *parent)
 	timer = new QTimer(this);
 	cam1fit = new Cam1Thread();
 	cam2fit = new Cam2Thread();
-	cam1fit_FM = new Cam1Thread_FM();
 	connect(timer, SIGNAL(timeout()), this, SLOT(outputFrame()));
-	connect(cam1fit, &Cam1Thread::finishSlot, this, &CvSystem::showSplitImg1);
-	connect(cam2fit, &Cam2Thread::finishSlot, this, &CvSystem::showSplitImg2);
+	connect(cam1fit, &Cam1Thread::finishSplit, this, &CvSystem::showSplitImg1);
+	connect(cam2fit, &Cam2Thread::finishSplit, this, &CvSystem::showSplitImg2);
+	connect(cam1fit, &Cam1Thread::finishMatch, this, &CvSystem::showMatchImg1);
+	connect(cam2fit, &Cam2Thread::finishMatch, this, &CvSystem::showMatchImg2);
+	connect(cam1fit, &Cam1Thread::finishAll, this, &CvSystem::finishCamThread1);
+	connect(cam2fit, &Cam2Thread::finishAll, this, &CvSystem::finishCamThread2);
 	ui.start_Button->setEnabled(false);
 }
 
@@ -178,18 +181,17 @@ void CvSystem::on_start_Button_clicked() {
 	// 放入第一个相机的图片
 	if (!frame1.srcFrame.empty()) {
 		cam1.addImg(frame1.srcFrame, frame1.outBinary(bin1.lowThreshold, bin1.highThreshold, bin1.dilatePara, bin1.erodePara, bin1.blurPara));
+		ui.extract_progressBar->setValue(10);
+		cam1fit->start();
 	}
 	// 放入第二个相机的图片
 	if (!frame2.srcFrame.empty()) {
-		cam2.addImg(frame2.srcFrame, frame2.outBinary(bin2.lowThreshold, bin2.highThreshold, bin2.dilatePara, bin2.erodePara, bin2.blurPara));
+		if (capType2) {
+			cam2.addImg(frame2.srcFrame, frame2.outBinary(bin2.lowThreshold, bin2.highThreshold, bin2.dilatePara, bin2.erodePara, bin2.blurPara));
+			ui.extract_progressBar_2->setValue(10);
+			cam2fit->start();
+		}
 	}
-	// 开启线程进行处理图像分割和轮廓
-	cam1fit->start();
-	cam2fit->start();
-	appendText("【完成】图像分割");
-	// 开启线程进行处理左右图像匹配
-	cam1fit_FM->start();
-	appendText("【完成】图像匹配");
 }
 
 // 停止按钮
@@ -267,25 +269,53 @@ void CvSystem::readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label,c
 //***************** Detection Function *******************//
 //********************************************************//
 
+// 显示分割后的图像
 void CvSystem::showSplitImg1() {
-	cam1fit->quit();
-	// 显示框选后的图像
+	ui.extract_progressBar->setValue(100);
 	if (!contour1_l.isEmpty()) {
 		displayImage(contour1_l.outImg, ui.leftFrame_Label_1, 0.5);
 	}
 	if (!contour1_r.isEmpty()) {
 		displayImage(contour1_r.outImg, ui.rightFrame_Label_1, 0.5);
 	}
+	ui.extract_progressBar->setValue(10);
+	appendText("【完成】图像1左右分割");
 }
 
+// 显示分割后的图像
 void CvSystem::showSplitImg2() {
-	cam2fit->quit();
-	// 显示框选后的图像
+	ui.extract_progressBar_2->setValue(100);
 	if (!contour2_l.isEmpty()) {
 		displayImage(contour2_l.outImg, ui.leftFrame_Label_2, 0.5);
 	}
 	if (!contour2_r.isEmpty()) {
 		displayImage(contour2_r.outImg, ui.rightFrame_Label_2, 0.5);
 	}
+	ui.extract_progressBar_2->setValue(10);
+	appendText("【完成】图像2左右分割");
 }
 
+void CvSystem::showMatchImg1() {
+	ui.extract_progressBar->setValue(100);
+	if (!match1.isEmpty()) {
+		// imshow("KeyPoints of imageL", match1.outImg);
+		displayImage(match1.outImg, ui.matchFrame_Label_1, 0.5);
+	}
+	appendText("【完成】图像1特征匹配");
+}
+
+void CvSystem::showMatchImg2() {
+	ui.extract_progressBar_2->setValue(100);
+	if (!match2.isEmpty()) {
+		displayImage(match2.outImg, ui.matchFrame_Label_2, 0.5);
+	}
+	appendText("【完成】图像2特征匹配");
+}
+
+void CvSystem::finishCamThread1() {
+	cam1fit->quit();
+}
+
+void CvSystem::finishCamThread2() {
+	cam2fit->quit();
+}

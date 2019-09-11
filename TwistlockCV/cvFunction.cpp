@@ -1,5 +1,7 @@
 #include "cvFunction.h"
 
+int featureType = 0;
+
 bool ascendSort(vector<Point> a, vector<Point> b) {
 	return a.size() > b.size();
 }
@@ -114,31 +116,85 @@ bool ContourReco::isEmpty() {
 void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 	leftImg = left.srcImg.clone();
 	rightImg = right.srcImg.clone();
-	/*
-	// 高斯光滑
+	// 高斯模糊
 	GaussianBlur(leftImg, leftImg, Size(3, 3), 0.5);
 	GaussianBlur(rightImg, rightImg, Size(3, 3), 0.5);
-	cout << "高斯光滑好了" << endl;
-	*/
-	// 找出特征点
-	Ptr<Feature2D>f2d = xfeatures2d::SURF::create();
-	vector<KeyPoint> keyPoint1, keyPoint2;
-	/*
-	f2d->detect(leftImg, keyPoint1);
-	f2d->detect(rightImg, keyPoint2);
-	cout << "找到特征点" << endl;
-	
-	// 绘制关键点
-	drawKeypoints(leftImg, keyPoint1, leftImg, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-	drawKeypoints(rightImg, keyPoint2, rightImg, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-	cout << "绘制特征点" << endl;
-	// 显示
-	namedWindow("KeyPoints of imageL", 0);
-	namedWindow("KeyPoints of imageR", 0);
-	imshow("KeyPoints of imageL", leftImg);
-	imshow("KeyPoints of imageR", rightImg);
-	*/
-	empty = false;
+	switch (featureType){
+	case 0: // ORB算法
+	{
+		Ptr<ORB> orb = ORB::create(1000);
+		orb->setFastThreshold(0);
+		// 计算特征点
+		vector<KeyPoint> keyPoint1, keyPoint2;
+		Mat descriptors_1, descriptors_2;
+		orb->detectAndCompute(leftImg, Mat(), keyPoint1, descriptors_1);
+		orb->detectAndCompute(rightImg, Mat(), keyPoint2, descriptors_2);
+		// 绘制关键点
+		//drawKeypoints(leftImg, keyPoint1, leftImg, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+		//drawKeypoints(rightImg, keyPoint2, rightImg, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+		// 特征点匹配
+		BFMatcher matcher;
+		vector<DMatch> matchesAll, matchesGMS;
+		// GMS算法: Grid-based Motion Statistics for Fast, Ultra-robust Feature Correspondence CVPR2017
+		matcher.match(descriptors_1, descriptors_2, matchesAll);
+		xfeatures2d::matchGMS(leftImg.size(), rightImg.size(), keyPoint1, keyPoint2, matchesAll, matchesGMS);
+		// 合并左右图像
+		drawMatches(leftImg, keyPoint1, rightImg, keyPoint2, matchesGMS, outImg, Scalar::all(-1), Scalar::all(-1),
+			std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+		empty = false;
+		break;
+	}
+	case 1: // SURF算法
+	{
+		// 找出特征点
+		Ptr<Feature2D>f2d = xfeatures2d::SURF::create();
+		vector<KeyPoint> keyPoint1, keyPoint2;
+		f2d->detect(leftImg, keyPoint1);
+		f2d->detect(rightImg, keyPoint2);
+		// 绘制关键点
+		//drawKeypoints(leftImg, keyPoint1, leftImg, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+		//drawKeypoints(rightImg, keyPoint2, rightImg, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+		/*drawKeypoints(leftImg, keyPoint1, leftImg, Scalar::all(-1));
+		drawKeypoints(rightImg, keyPoint2, rightImg, Scalar::all(-1));*/
+		// 特征点计算
+		Mat descriptors_1, descriptors_2;
+		f2d->compute(leftImg, keyPoint1, descriptors_1);
+		f2d->compute(rightImg, keyPoint2, descriptors_2);
+		// 特征点匹配
+		BFMatcher matcher;
+		vector<DMatch> matches;
+		matcher.match(descriptors_1, descriptors_2, matches);
+		// 计算特征点最长和最短匹配距离
+		double maxdist = 0; double mindist = 100;
+		for (int i = 0; i < descriptors_1.rows; i++)
+		{
+			double dist = matches[i].distance;
+			if (dist < mindist)mindist = dist;
+			if (dist > maxdist)maxdist = dist;
+		}
+		// 挑选好的匹配点
+		vector<DMatch>goodMatches;
+		for (int i = 0; i < descriptors_1.rows; i++)
+		{
+			if (matches[i].distance<2 * mindist)
+			{
+				goodMatches.push_back(matches[i]);
+			}
+		}
+		// 合并左右图像
+		drawMatches(leftImg, keyPoint1, rightImg, keyPoint2, goodMatches, outImg, Scalar::all(-1), Scalar::all(-1),
+			std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+		empty = false;
+		break;
+	}
+	case 2: // SIFT算法
+	{
+
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 bool FeatureMatch::isEmpty() {

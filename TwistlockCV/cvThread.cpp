@@ -17,16 +17,19 @@ Cam1Thread::Cam1Thread(QObject *parent){}
 
 void Cam1Thread::run(){
 	if (!cam1.isEmpty()) {
-		// 图像左右分割并输入
-		split1.fit(cam1.srcImg, cam1.binImg);
+		split1.fit(cam1.srcImg, cam1.binImg); // 图像左右分割并输入
 		if (!split1.isEmpty()) {
 			// 图像取轮廓，最小轮廓框选
 			contour1_l.fit(split1.left, split1.leftBin);
 			contour1_r.fit(split1.right, split1.rightBin);
+			emit finishSplit(); // 发送分割结束信号
+			if ((!contour1_l.isEmpty()) && (!contour1_r.isEmpty())) {
+				match1.fit(contour1_l, contour1_r); // 特征点匹配
+				emit finishMatch(); // 发送匹配结束信号
+			}
 		}
 	}
-	//发送结束信号
-	emit finishSlot();
+	emit finishAll();
 	exec();
 }
 
@@ -36,29 +39,18 @@ Cam2Thread::Cam2Thread(QObject *parent) {}
 
 void Cam2Thread::run() {
 	if (!cam2.isEmpty()) {
-		// 图像左右分割并输入
-		split2.fit(cam2.srcImg, cam2.binImg);
+		split2.fit(cam2.srcImg, cam2.binImg); // 图像左右分割并输入
 		if (!split2.isEmpty()) {
 			// 图像取轮廓，最小轮廓框选
 			contour2_l.fit(split2.left, split2.leftBin);
 			contour2_r.fit(split2.right, split2.rightBin);
+			emit finishSplit(); // 发送分割结束信号
+			if ((!contour2_l.isEmpty()) && (!contour2_r.isEmpty())) {
+				match2.fit(contour2_l, contour2_r); // 特征点匹配
+				emit finishMatch(); // 发送匹配结束信号
+			}
 		}
 	}
-	//发送结束信号
-	emit finishSlot();
-	exec();
-}
-
-// ******************* camera1 左右特征点匹配 ********************** //
-
-Cam1Thread_FM::Cam1Thread_FM(QObject *parent) {}
-
-void Cam1Thread_FM::run() {
-	if (!split1.isEmpty()) {
-		// 特征点匹配
-		match1.fit(contour1_l, contour1_r);
-	}
-	//发送结束信号
-	emit finishSlot();
+	emit finishAll();
 	exec();
 }
