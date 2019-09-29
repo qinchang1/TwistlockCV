@@ -1,7 +1,7 @@
 #include "pre.h"
 
 binPara bin1(0, 140, 2, 7, 9);
-binPara bin2(0, 140, 2, 7, 9);
+binPara bin2(0, 125, 2, 4, 9);
 extern bool isBinary;
 
 preWindow::preWindow(QWidget *parent)
@@ -99,6 +99,7 @@ void preWindow::on_blur_horizontalSlider_2_valueChanged()
 void preWindow::on_ok_Button_clicked()
 {
 	isBinary = 0;
+	ui.binary_checkBox->setChecked(false);
 	this->close();
 }
 

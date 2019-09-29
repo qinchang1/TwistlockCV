@@ -8,23 +8,60 @@ bool isStart = false; //是否已经开始
 //****** Binary parameter *****//
 extern binPara bin1;
 extern binPara bin2;
-//*****************************//
 
+//******** 提取的图像 *********//
+extern ImgClass cam1;
+extern ImgClass cam2;
+
+//******** 处理后的图像 *********//
+extern SplitImg split1;
+extern SplitImg split2;
+extern ContourReco contour1_l;
+extern ContourReco contour1_r;
+extern ContourReco contour2_l;
+extern ContourReco contour2_r;
+extern FeatureMatch match1;
+extern FeatureMatch match2;
+
+// 主界面初始化参数
 CvSystem::CvSystem(QWidget *parent)
-	: QMainWindow(parent)
-{
+	: QMainWindow(parent) {
 	ui.setupUi(this);
 	timer = new QTimer(this);
+	cam1fit = new Cam1Thread();
+	cam2fit = new Cam2Thread();
 	connect(timer, SIGNAL(timeout()), this, SLOT(outputFrame()));
+	connect(cam1fit, &Cam1Thread::finishSplit, this, &CvSystem::showSplitImg1);
+	connect(cam2fit, &Cam2Thread::finishSplit, this, &CvSystem::showSplitImg2);
+	connect(cam1fit, &Cam1Thread::finishMatch, this, &CvSystem::showMatchImg1);
+	connect(cam2fit, &Cam2Thread::finishMatch, this, &CvSystem::showMatchImg2);
+	connect(cam1fit, &Cam1Thread::finishAll, this, &CvSystem::finishCamThread1);
+	connect(cam2fit, &Cam2Thread::finishAll, this, &CvSystem::finishCamThread2);
+	ui.start_Button->setEnabled(false);
 }
 
 //********************************************************//
 //***************** Interface Function *******************//
 //********************************************************//
 
-void CvSystem::on_preSet_Action_triggered()
-{
-	preWin.show();//open pretreatment window
+// 显示框加一行文字
+void CvSystem::appendText(const QString &str) {
+	QString temp = str;
+	ui.textBrowser->append(temp);
+}
+
+// 显示框清空显示文字
+void CvSystem::setText(const QString &str) {
+	QString temp = str;
+	ui.textBrowser->setText(temp);
+}
+
+void CvSystem::on_preSet_Action_triggered() {
+	preWin.show(); // open pretreatment window
+}
+
+void CvSystem::on_paraSet_Action_triggered() {
+	paraWin.show(); // 显示参数配置窗口
 }
 
 //********************************************************//
@@ -32,6 +69,15 @@ void CvSystem::on_preSet_Action_triggered()
 //********************************************************//
 
 void CvSystem::on_display_Button_clicked(){
+	// 清空各个图像控件
+	ui.leftFrame_Label_1->clear();
+	ui.leftFrame_Label_2->clear();
+	ui.rightFrame_Label_1->clear();
+	ui.rightFrame_Label_2->clear();
+	ui.matchFrame_Label_1->clear();
+	ui.matchFrame_Label_2->clear();
+	ui.detectionFrame_Label_1->clear();
+	ui.detectionFrame_Label_2->clear();
 	//////////////////////video 1
 	isStart = true;
 	switch (capType1)
@@ -83,6 +129,7 @@ void CvSystem::on_display_Button_clicked(){
 	// 设置控件不可用
 	ui.capType_comboBox->setEnabled(false);
 	ui.capType_comboBox_2->setEnabled(false);
+	ui.start_Button->setEnabled(true);
 	timer->start(33);// Start timing, signal out when timeout
 }
 
@@ -127,14 +174,37 @@ void CvSystem::on_capType_comboBox_2_currentIndexChanged(){
 	}
 }
 
-void CvSystem::on_stop_Button_clicked()
-{
+// 图像提取按钮
+void CvSystem::on_start_Button_clicked() {
+	appendText("开始处理...");
+	appendText("【开始】图像处理...");
+	// 放入第一个相机的图片
+	if (!frame1.srcFrame.empty()) {
+		cam1.addImg(frame1.srcFrame, frame1.outBinary(bin1.lowThreshold, bin1.highThreshold, bin1.dilatePara, bin1.erodePara, bin1.blurPara));
+		ui.extract_progressBar->setValue(10);
+		cam1fit->start();
+	}
+	// 放入第二个相机的图片
+	if (!frame2.srcFrame.empty()) {
+		if (capType2) {
+			cam2.addImg(frame2.srcFrame, frame2.outBinary(bin2.lowThreshold, bin2.highThreshold, bin2.dilatePara, bin2.erodePara, bin2.blurPara));
+			ui.extract_progressBar_2->setValue(10);
+			cam2fit->start();
+		}
+	}
+}
+
+// 停止按钮
+void CvSystem::on_stop_Button_clicked(){
 	ui.textBrowser->append("视频源导入停止！");
 	isStart = false;
-	// 设置控件可用
+	// 设置控件可用性
 	ui.capType_comboBox->setEnabled(true);
 	ui.capType_comboBox_2->setEnabled(true);
+	ui.start_Button->setEnabled(false);
+	// 时间器停止
 	timer->stop();
+	// 图像捕捉器释放
 	capture1.release();
 	capture2.release();
 }
@@ -143,8 +213,8 @@ void CvSystem::on_stop_Button_clicked()
 //******************* Video Function *********************//
 //********************************************************//
 
-void CvSystem::displayImage(Mat &src, QLabel *label, double ratio,bool isGray)
-{
+// 显示图像
+void CvSystem::displayImage(Mat &src, QLabel *label, double ratio,bool isGray){
 	if (isGray){
 		Mat tempImage;
 		cvtColor(src, tempImage, CV_GRAY2RGB);//only RGB of Qt
@@ -198,3 +268,54 @@ void CvSystem::readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label,c
 //********************************************************//
 //***************** Detection Function *******************//
 //********************************************************//
+
+// 显示分割后的图像
+void CvSystem::showSplitImg1() {
+	ui.extract_progressBar->setValue(100);
+	if (!contour1_l.isEmpty()) {
+		displayImage(contour1_l.outImg, ui.leftFrame_Label_1, 0.5);
+	}
+	if (!contour1_r.isEmpty()) {
+		displayImage(contour1_r.outImg, ui.rightFrame_Label_1, 0.5);
+	}
+	ui.extract_progressBar->setValue(10);
+	appendText("【完成】图像1左右分割");
+}
+
+// 显示分割后的图像
+void CvSystem::showSplitImg2() {
+	ui.extract_progressBar_2->setValue(100);
+	if (!contour2_l.isEmpty()) {
+		displayImage(contour2_l.outImg, ui.leftFrame_Label_2, 0.5);
+	}
+	if (!contour2_r.isEmpty()) {
+		displayImage(contour2_r.outImg, ui.rightFrame_Label_2, 0.5);
+	}
+	ui.extract_progressBar_2->setValue(10);
+	appendText("【完成】图像2左右分割");
+}
+
+void CvSystem::showMatchImg1() {
+	ui.extract_progressBar->setValue(100);
+	if (!match1.isEmpty()) {
+		// imshow("KeyPoints of imageL", match1.outImg);
+		displayImage(match1.outImg, ui.matchFrame_Label_1, 0.5);
+	}
+	appendText("【完成】图像1特征匹配");
+}
+
+void CvSystem::showMatchImg2() {
+	ui.extract_progressBar_2->setValue(100);
+	if (!match2.isEmpty()) {
+		displayImage(match2.outImg, ui.matchFrame_Label_2, 0.5);
+	}
+	appendText("【完成】图像2特征匹配");
+}
+
+void CvSystem::finishCamThread1() {
+	cam1fit->quit();
+}
+
+void CvSystem::finishCamThread2() {
+	cam2fit->quit();
+}

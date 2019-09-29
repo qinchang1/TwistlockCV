@@ -32,3 +32,7 @@
 *.app
 /TwistlockCV.VC.db
 /TwistlockCV.VC.VC.opendb
+/TwistlockCV/x64/Debug/TwistlockCV.tlog
+/TwistlockCV/x64/Debug
+/x64/Debug
+/TwistlockCV/GeneratedFiles/Debug
