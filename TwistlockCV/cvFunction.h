@@ -10,6 +10,7 @@
 #include <opencv2/features2d.hpp>
 #include <opencv2/flann.hpp>
 #include <opencv2/xfeatures2d.hpp>
+#include <para.h>
 
 using namespace cv;
 using namespace std;
@@ -69,7 +70,7 @@ public:
 	Mat srcImg;
 	Mat outImg;
 	int x, y, w, h;
-	int cenx, ceny, angle;
+	double cenx, ceny, angle;
 private:
 	bool empty = true;
 };
@@ -78,10 +79,12 @@ private:
 class FeatureMatch {
 public:
 	void fit(const ContourReco &left, const ContourReco &right);
+	double distance(const CamPara &cam);
 	Mat leftImg;
 	Mat rightImg;
 	Mat outImg;
-	double paraMean;
+	int goodNum, feaNum;
+	double px; // йс╡Н
 	bool isEmpty();
 private:
 	bool empty = true;

@@ -41,6 +41,8 @@ public:
 
 private:
 	Ui::preWindow ui;
+	binPara bin10;
+	binPara bin20;
 
 	private slots:
 	void on_ok_Button_clicked();

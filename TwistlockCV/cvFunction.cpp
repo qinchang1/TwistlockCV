@@ -13,6 +13,7 @@ bool ascendPara(parallax a, parallax b)
 	return a.paraValue < b.paraValue;
 }
 
+//**************************************************//
 //**************** Class FrameImg ******************//
 
 Mat FrameImg::outGray(){
@@ -44,6 +45,7 @@ Mat FrameImg::outBinary(const int& lowThreshold, const int& highThreshold, const
 	return tempBinary;
 }
 
+//*******************************************************//
 //******************* class ImgClass ********************//
 
 void ImgClass::addImg(const Mat &src, const Mat &bin) {
@@ -56,6 +58,7 @@ bool ImgClass::isEmpty() {
 	return empty;
 }
 
+//*******************************************************//
 //******************* class SplitImg ********************//
 
 void SplitImg::fit(const Mat &src, const Mat &bin) {
@@ -72,6 +75,7 @@ bool SplitImg::isEmpty() {
 	return empty;
 }
 
+//**********************************************************//
 //******************* class ContourReco ********************//
 
 void ContourReco::fit(const Mat &src, const Mat &bin) {
@@ -118,6 +122,7 @@ bool ContourReco::isEmpty() {
 	return empty;
 }
 
+//***********************************************************//
 //******************* class FeatureMatch ********************//
 
 void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
@@ -132,6 +137,7 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 	vector<KeyPoint> keyPoint1, keyPoint2;
 
 	//**************************** 匹配算法 *********************************//
+	bool flagMatch = false;
 	switch (featureType){
 	case 0: // ORB算法
 	{
@@ -153,7 +159,7 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 		// 合并左右图像
 		drawMatches(leftImg, keyPoint1, rightImg, keyPoint2, goodMatches, outImg, Scalar::all(-1), Scalar::all(-1),
 			std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-		empty = false;
+		flagMatch = true;
 		break;
 	}
 	case 1: // SURF算法
@@ -191,7 +197,7 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 		// 合并左右图像
 		drawMatches(leftImg, keyPoint1, rightImg, keyPoint2, goodMatches, outImg, Scalar::all(-1), Scalar::all(-1),
 			std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-		empty = false;
+		flagMatch = true;
 		break;
 	}
 	case 2: // SIFT算法
@@ -229,7 +235,7 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 		// 合并左右图像
 		drawMatches(leftImg, keyPoint1, rightImg, keyPoint2, goodMatches, outImg, Scalar::all(-1), Scalar::all(-1),
 			std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-		empty = false;
+		flagMatch = true;
 		break;
 	}
 	default:
@@ -237,38 +243,49 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 	}
 
 	// ***************************** 计算视差 ************************************ //
-	vector<parallax>para;
-	for (int i = 0; i < goodMatches.size(); i++)
-	{
-		parallax temp(keyPoint1[goodMatches[i].queryIdx].pt.x, keyPoint2[goodMatches[i].trainIdx].pt.x);
-		para.push_back(temp);
-		//cout << "No." << i + 1 << ":\t l_X ";
-		//cout << para[i].leftX << "\t r_X " << para[i].rightX;
-		//cout << "\t parallax " << para[i].paraValue << endl;
+	if(flagMatch){
+		vector<parallax>para;
+		feaNum = goodMatches.size();
+		for (int i = 0; i < goodMatches.size(); i++){
+			parallax temp(keyPoint1[goodMatches[i].queryIdx].pt.x, keyPoint2[goodMatches[i].trainIdx].pt.x);
+			para.push_back(temp);
+			//cout << "No." << i + 1 << ":\t l_X ";
+			//cout << para[i].leftX << "\t r_X " << para[i].rightX;
+			//cout << "\t parallax " << para[i].paraValue << endl;
+		}
+		sort(para.begin(), para.end(), ascendPara);
+		int idxMedian = int(para.size() / 2);
+		double paraMedian = para[idxMedian].paraValue;
+		vector<parallax>::iterator it;
+		for (it = para.begin(); it != para.end(); ){
+			if (it->paraValue<((1 - errorRange)*paraMedian) || it->paraValue>((1 + errorRange)*paraMedian))
+				it = para.erase(it);
+			else
+				it++;
+		}
+		// cout << "Final data..." << endl;
+		double paraSum = 0;
+		goodNum = para.size();
+		for (int i = 0; i < para.size(); i++){
+			paraSum = paraSum + para[i].paraValue;
+			// cout << "No." << i << "\t" << para[i].paraValue << endl;
+		}
+		px = paraSum / para.size();
+		// cout << "Parallax is " << paraMean << " pixel." << endl;
+		empty = false;
 	}
-	sort(para.begin(), para.end(), ascendPara);
-	int idxMedian = int(para.size() / 2);
-	double paraMedian = para[idxMedian].paraValue;
-	vector<parallax>::iterator it;
-	for (it = para.begin(); it != para.end(); )
-	{
-		if (it->paraValue<((1 - errorRange)*paraMedian) || it->paraValue>((1 + errorRange)*paraMedian))
-			it = para.erase(it);
-		else
-			it++;
-	}
-	// cout << "Final data..." << endl;
-	double paraSum = 0;
-	for (int i = 0; i < para.size(); i++)
-	{
-		paraSum = paraSum + para[i].paraValue;
-		// cout << "No." << i << "\t" << para[i].paraValue << endl;
-	}
-	paraMean = paraSum / para.size();
-	// cout << "Parallax is " << paraMean << " pixel." << endl;
+}
 
-	// ***************************** 计算距离 ************************************ //
-
+// 返回计算的距离值（需要输入摄像头参数）
+double FeatureMatch::distance(const CamPara &cam) {
+	if (isEmpty()) {
+		return -1;
+	}
+	else {
+		double dis;
+		dis = cam.para0 + px*cam.para1 + px*px*cam.para2 + px*px*px*cam.para3;
+		return dis;
+	}
 }
 
 bool FeatureMatch::isEmpty() {

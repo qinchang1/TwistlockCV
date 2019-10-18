@@ -5,6 +5,9 @@ CapType capType2 = NONE;//camera2 input tpye
 bool isBinary = 0;//default image is RGB
 bool isStart = false; //是否已经开始
 
+//******** 匹配算法 ********//
+extern int featureType;
+
 //****** Binary parameter *****//
 extern binPara bin1;
 extern binPara bin2;
@@ -12,6 +15,10 @@ extern binPara bin2;
 //******** 提取的图像 *********//
 extern ImgClass cam1;
 extern ImgClass cam2;
+
+//******** 摄像头参数 *********//
+extern CamPara camPara1;
+extern CamPara camPara2;
 
 //******** 处理后的图像 *********//
 extern SplitImg split1;
@@ -178,6 +185,18 @@ void CvSystem::on_capType_comboBox_2_currentIndexChanged(){
 void CvSystem::on_start_Button_clicked() {
 	appendText("开始处理...");
 	appendText("【开始】图像处理...");
+	if (0 == featureType) {
+		ui.matchType_Label->setText("ORB");
+	}
+	else if (1 == featureType) {
+		ui.matchType_Label->setText("SURF");
+	}
+	else if (2 == featureType) {
+		ui.matchType_Label->setText("SIFT");
+	}
+	else {
+		ui.matchType_Label->setText("匹配算法");
+	}
 	// 放入第一个相机的图片
 	if (!frame1.srcFrame.empty()) {
 		cam1.addImg(frame1.srcFrame, frame1.outBinary(bin1.lowThreshold, bin1.highThreshold, bin1.dilatePara, bin1.erodePara, bin1.blurPara));
@@ -269,11 +288,19 @@ void CvSystem::readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label,c
 //***************** Detection Function *******************//
 //********************************************************//
 
-// 显示分割后的图像
+// 显示分割后的图像1
 void CvSystem::showSplitImg1() {
 	ui.extract_progressBar->setValue(100);
 	if (!contour1_l.isEmpty()) {
 		displayImage(contour1_l.outImg, ui.leftFrame_Label_1, 0.5);
+		// 显示轮廓中心坐标
+		QString temp;
+		temp.sprintf("%.3f", contour1_l.cenx);
+		ui.cenx_label_1->setText(temp);
+		temp.sprintf("%.3f", contour1_l.ceny);
+		ui.ceny_label_1->setText(temp);
+		temp.sprintf("%.3f", contour1_l.angle);
+		ui.angle_label_1->setText(temp);
 	}
 	if (!contour1_r.isEmpty()) {
 		displayImage(contour1_r.outImg, ui.rightFrame_Label_1, 0.5);
@@ -282,11 +309,19 @@ void CvSystem::showSplitImg1() {
 	appendText("【完成】图像1左右分割");
 }
 
-// 显示分割后的图像
+// 显示分割后的图像2
 void CvSystem::showSplitImg2() {
 	ui.extract_progressBar_2->setValue(100);
 	if (!contour2_l.isEmpty()) {
 		displayImage(contour2_l.outImg, ui.leftFrame_Label_2, 0.5);
+		// 显示轮廓中心坐标
+		QString temp;
+		temp.sprintf("%.3f", contour2_l.cenx);
+		ui.cenx_label_2->setText(temp);
+		temp.sprintf("%.3f", contour2_l.ceny);
+		ui.ceny_label_2->setText(temp);
+		temp.sprintf("%.3f", contour2_l.angle);
+		ui.angle_label_2->setText(temp);
 	}
 	if (!contour2_r.isEmpty()) {
 		displayImage(contour2_r.outImg, ui.rightFrame_Label_2, 0.5);
@@ -295,21 +330,35 @@ void CvSystem::showSplitImg2() {
 	appendText("【完成】图像2左右分割");
 }
 
+// 显示特征匹配后的图像1
 void CvSystem::showMatchImg1() {
 	ui.extract_progressBar->setValue(100);
 	if (!match1.isEmpty()) {
 		// imshow("KeyPoints of imageL", match1.outImg);
 		displayImage(match1.outImg, ui.matchFrame_Label_1, 0.5);
+		appendText("【完成】图像1特征匹配");
+		QString temp;
+		temp.sprintf("%d/%d", match1.goodNum,match1.feaNum);
+		ui.feaNum_label_1->setText(temp);
+		temp.sprintf("%.3f", match1.distance(camPara1));
+		ui.distance_label_1->setText(temp);
+		appendText("【完成】图像1视差测距");
 	}
-	appendText("【完成】图像1特征匹配");
 }
 
+// 显示特征匹配后的图像2
 void CvSystem::showMatchImg2() {
 	ui.extract_progressBar_2->setValue(100);
 	if (!match2.isEmpty()) {
 		displayImage(match2.outImg, ui.matchFrame_Label_2, 0.5);
+		appendText("【完成】图像2特征匹配");
+		QString temp;
+		temp.sprintf("%d/%d", match2.goodNum, match2.feaNum);
+		ui.feaNum_label_2->setText(temp);
+		temp.sprintf("%.3f", match2.distance(camPara2));
+		ui.distance_label_2->setText(temp);
+		appendText("【完成】图像2视差测距");
 	}
-	appendText("【完成】图像2特征匹配");
 }
 
 void CvSystem::finishCamThread1() {

@@ -8,6 +8,11 @@ preWindow::preWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	
+	// ±£´æÄ¬ÈÏ
+	bin10 = bin1;
+	bin20 = bin2;
+
 	connect(ui.blur_spinBox, SIGNAL(valueChanged(int)), ui.blur_horizontalSlider, SLOT(setValue(int)));
 	connect(ui.blur_horizontalSlider, SIGNAL(valueChanged(int)), ui.blur_spinBox, SLOT(setValue(int)));
 	connect(ui.dilate_spinBox, SIGNAL(valueChanged(int)), ui.dilate_horizontalSlider, SLOT(setValue(int)));
@@ -117,8 +122,8 @@ void preWindow::on_binary_checkBox_clicked()
 
 void preWindow::on_default_Button_clicked()
 {
-	bin1.set(0, 140, 2, 7, 9);
-	bin2.set(0, 140, 2, 7, 9);
+	bin1 = bin10;
+	bin2 = bin20;
 
 	ui.lowTh_horizontalSlider->setValue(bin1.lowThreshold);
 	ui.highTh_horizontalSlider->setValue(bin1.highThreshold);
