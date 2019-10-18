@@ -14,6 +14,19 @@
 using namespace cv;
 using namespace std;
 
+class parallax
+{
+public:
+	double leftX;
+	double rightX;
+	double paraValue;
+	parallax(double lx, double rx) {
+		leftX = lx;
+		rightX = rx;
+		paraValue = leftX - rightX;
+	}
+};
+
 //video\camera stream
 class FrameImg {
 public:
@@ -68,6 +81,7 @@ public:
 	Mat leftImg;
 	Mat rightImg;
 	Mat outImg;
+	double paraMean;
 	bool isEmpty();
 private:
 	bool empty = true;

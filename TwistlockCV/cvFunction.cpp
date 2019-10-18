@@ -1,9 +1,16 @@
 #include "cvFunction.h"
 
-int featureType = 0;
+extern int featureType;
+extern int featureCreatePara;
+extern double errorRange;
 
 bool ascendSort(vector<Point> a, vector<Point> b) {
 	return a.size() > b.size();
+}
+
+bool ascendPara(parallax a, parallax b)
+{
+	return a.paraValue < b.paraValue;
 }
 
 //**************** Class FrameImg ******************//
@@ -119,13 +126,18 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 	// 高斯模糊
 	GaussianBlur(leftImg, leftImg, Size(3, 3), 0.5);
 	GaussianBlur(rightImg, rightImg, Size(3, 3), 0.5);
+
+	// 匹配特征点
+	vector<DMatch>goodMatches; 
+	vector<KeyPoint> keyPoint1, keyPoint2;
+
+	//**************************** 匹配算法 *********************************//
 	switch (featureType){
 	case 0: // ORB算法
 	{
-		Ptr<ORB> orb = ORB::create(1000);
+		Ptr<ORB> orb = ORB::create(featureCreatePara);
 		orb->setFastThreshold(0);
 		// 计算特征点
-		vector<KeyPoint> keyPoint1, keyPoint2;
 		Mat descriptors_1, descriptors_2;
 		orb->detectAndCompute(leftImg, Mat(), keyPoint1, descriptors_1);
 		orb->detectAndCompute(rightImg, Mat(), keyPoint2, descriptors_2);
@@ -134,12 +146,12 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 		//drawKeypoints(rightImg, keyPoint2, rightImg, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 		// 特征点匹配
 		BFMatcher matcher;
-		vector<DMatch> matchesAll, matchesGMS;
+		vector<DMatch> matchesAll;
 		// GMS算法: Grid-based Motion Statistics for Fast, Ultra-robust Feature Correspondence CVPR2017
 		matcher.match(descriptors_1, descriptors_2, matchesAll);
-		xfeatures2d::matchGMS(leftImg.size(), rightImg.size(), keyPoint1, keyPoint2, matchesAll, matchesGMS);
+		xfeatures2d::matchGMS(leftImg.size(), rightImg.size(), keyPoint1, keyPoint2, matchesAll, goodMatches);
 		// 合并左右图像
-		drawMatches(leftImg, keyPoint1, rightImg, keyPoint2, matchesGMS, outImg, Scalar::all(-1), Scalar::all(-1),
+		drawMatches(leftImg, keyPoint1, rightImg, keyPoint2, goodMatches, outImg, Scalar::all(-1), Scalar::all(-1),
 			std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 		empty = false;
 		break;
@@ -147,8 +159,7 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 	case 1: // SURF算法
 	{
 		// 找出特征点
-		Ptr<Feature2D>f2d = xfeatures2d::SURF::create();
-		vector<KeyPoint> keyPoint1, keyPoint2;
+		Ptr<Feature2D>f2d = xfeatures2d::SURF::create(featureCreatePara);
 		f2d->detect(leftImg, keyPoint1);
 		f2d->detect(rightImg, keyPoint2);
 		// 绘制关键点
@@ -172,7 +183,6 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 			if (dist > maxdist)maxdist = dist;
 		}
 		// 挑选好的匹配点
-		vector<DMatch>goodMatches;
 		for (int i = 0; i < descriptors_1.rows; i++){
 			if (matches[i].distance<2 * mindist){
 				goodMatches.push_back(matches[i]);
@@ -186,12 +196,79 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 	}
 	case 2: // SIFT算法
 	{
-
+		// 找出特征点
+		Ptr<Feature2D>f2d = xfeatures2d::SIFT::create(featureCreatePara);
+		f2d->detect(leftImg, keyPoint1);
+		f2d->detect(rightImg, keyPoint2);
+		// 绘制关键点
+		//drawKeypoints(leftImg, keyPoint1, leftImg, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+		//drawKeypoints(rightImg, keyPoint2, rightImg, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+		/*drawKeypoints(leftImg, keyPoint1, leftImg, Scalar::all(-1));
+		drawKeypoints(rightImg, keyPoint2, rightImg, Scalar::all(-1));*/
+		// 特征点计算
+		Mat descriptors_1, descriptors_2;
+		f2d->compute(leftImg, keyPoint1, descriptors_1);
+		f2d->compute(rightImg, keyPoint2, descriptors_2);
+		// 特征点匹配
+		BFMatcher matcher;
+		vector<DMatch> matches;
+		matcher.match(descriptors_1, descriptors_2, matches);
+		// 计算特征点最长和最短匹配距离
+		double maxdist = 0; double mindist = 100;
+		for (int i = 0; i < descriptors_1.rows; i++) {
+			double dist = matches[i].distance;
+			if (dist < mindist)mindist = dist;
+			if (dist > maxdist)maxdist = dist;
+		}
+		// 挑选好的匹配点
+		for (int i = 0; i < descriptors_1.rows; i++) {
+			if (matches[i].distance<2 * mindist) {
+				goodMatches.push_back(matches[i]);
+			}
+		}
+		// 合并左右图像
+		drawMatches(leftImg, keyPoint1, rightImg, keyPoint2, goodMatches, outImg, Scalar::all(-1), Scalar::all(-1),
+			std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+		empty = false;
 		break;
 	}
 	default:
 		break;
 	}
+
+	// ***************************** 计算视差 ************************************ //
+	vector<parallax>para;
+	for (int i = 0; i < goodMatches.size(); i++)
+	{
+		parallax temp(keyPoint1[goodMatches[i].queryIdx].pt.x, keyPoint2[goodMatches[i].trainIdx].pt.x);
+		para.push_back(temp);
+		//cout << "No." << i + 1 << ":\t l_X ";
+		//cout << para[i].leftX << "\t r_X " << para[i].rightX;
+		//cout << "\t parallax " << para[i].paraValue << endl;
+	}
+	sort(para.begin(), para.end(), ascendPara);
+	int idxMedian = int(para.size() / 2);
+	double paraMedian = para[idxMedian].paraValue;
+	vector<parallax>::iterator it;
+	for (it = para.begin(); it != para.end(); )
+	{
+		if (it->paraValue<((1 - errorRange)*paraMedian) || it->paraValue>((1 + errorRange)*paraMedian))
+			it = para.erase(it);
+		else
+			it++;
+	}
+	// cout << "Final data..." << endl;
+	double paraSum = 0;
+	for (int i = 0; i < para.size(); i++)
+	{
+		paraSum = paraSum + para[i].paraValue;
+		// cout << "No." << i << "\t" << para[i].paraValue << endl;
+	}
+	paraMean = paraSum / para.size();
+	// cout << "Parallax is " << paraMean << " pixel." << endl;
+
+	// ***************************** 计算距离 ************************************ //
+
 }
 
 bool FeatureMatch::isEmpty() {
