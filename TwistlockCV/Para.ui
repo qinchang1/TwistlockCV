@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>700</width>
-    <height>480</height>
+    <height>530</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>440</y>
+      <y>490</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -31,9 +31,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>170</y>
+      <y>280</y>
       <width>681</width>
-      <height>261</height>
+      <height>201</height>
      </rect>
     </property>
     <property name="title">
@@ -69,7 +69,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>100</y>
+       <y>80</y>
        <width>121</width>
        <height>21</height>
       </rect>
@@ -82,7 +82,7 @@
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>100</y>
+       <y>80</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -111,7 +111,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>100</y>
+       <y>80</y>
        <width>110</width>
        <height>21</height>
       </rect>
@@ -121,7 +121,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>140</y>
+       <y>110</y>
        <width>141</width>
        <height>21</height>
       </rect>
@@ -134,7 +134,7 @@
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>140</y>
+       <y>110</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -150,7 +150,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>140</y>
+       <y>110</y>
        <width>110</width>
        <height>21</height>
       </rect>
@@ -160,7 +160,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>180</y>
+       <y>140</y>
        <width>151</width>
        <height>21</height>
       </rect>
@@ -173,7 +173,7 @@
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>180</y>
+       <y>140</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -189,7 +189,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>180</y>
+       <y>140</y>
        <width>110</width>
        <height>21</height>
       </rect>
@@ -199,7 +199,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>220</y>
+       <y>170</y>
        <width>151</width>
        <height>21</height>
       </rect>
@@ -212,7 +212,7 @@
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>220</y>
+       <y>170</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -228,7 +228,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>220</y>
+       <y>170</y>
        <width>110</width>
        <height>21</height>
       </rect>
@@ -238,7 +238,7 @@
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>60</y>
+       <y>50</y>
        <width>221</width>
        <height>22</height>
       </rect>
@@ -257,7 +257,7 @@
      <property name="geometry">
       <rect>
        <x>560</x>
-       <y>140</y>
+       <y>110</y>
        <width>110</width>
        <height>21</height>
       </rect>
@@ -270,7 +270,7 @@
      <property name="geometry">
       <rect>
        <x>450</x>
-       <y>220</y>
+       <y>170</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -286,7 +286,7 @@
      <property name="geometry">
       <rect>
        <x>560</x>
-       <y>220</y>
+       <y>170</y>
        <width>110</width>
        <height>21</height>
       </rect>
@@ -299,7 +299,7 @@
      <property name="geometry">
       <rect>
        <x>450</x>
-       <y>140</y>
+       <y>110</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -315,7 +315,7 @@
      <property name="geometry">
       <rect>
        <x>560</x>
-       <y>180</y>
+       <y>140</y>
        <width>110</width>
        <height>21</height>
       </rect>
@@ -328,7 +328,7 @@
      <property name="geometry">
       <rect>
        <x>450</x>
-       <y>100</y>
+       <y>80</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -344,7 +344,7 @@
      <property name="geometry">
       <rect>
        <x>450</x>
-       <y>60</y>
+       <y>50</y>
        <width>221</width>
        <height>22</height>
       </rect>
@@ -363,7 +363,7 @@
      <property name="geometry">
       <rect>
        <x>560</x>
-       <y>100</y>
+       <y>80</y>
        <width>110</width>
        <height>21</height>
       </rect>
@@ -376,7 +376,7 @@
      <property name="geometry">
       <rect>
        <x>450</x>
-       <y>180</y>
+       <y>140</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -393,9 +393,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>160</y>
       <width>681</width>
-      <height>151</height>
+      <height>111</height>
      </rect>
     </property>
     <property name="title">
@@ -405,7 +405,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>110</y>
+       <y>80</y>
        <width>110</width>
        <height>21</height>
       </rect>
@@ -415,7 +415,7 @@
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>30</y>
+       <y>20</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -431,7 +431,7 @@
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>70</y>
+       <y>50</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -447,7 +447,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>30</y>
+       <y>20</y>
        <width>110</width>
        <height>22</height>
       </rect>
@@ -472,7 +472,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>70</y>
+       <y>50</y>
        <width>161</width>
        <height>21</height>
       </rect>
@@ -485,7 +485,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>30</y>
+       <y>20</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -498,7 +498,7 @@
      <property name="geometry">
       <rect>
        <x>180</x>
-       <y>110</y>
+       <y>80</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -514,7 +514,7 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>70</y>
+       <y>50</y>
        <width>110</width>
        <height>21</height>
       </rect>
@@ -524,7 +524,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>110</y>
+       <y>80</y>
        <width>131</width>
        <height>21</height>
       </rect>
@@ -538,7 +538,7 @@
     <property name="geometry">
      <rect>
       <x>600</x>
-      <y>440</y>
+      <y>490</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -551,7 +551,7 @@
     <property name="geometry">
      <rect>
       <x>380</x>
-      <y>440</y>
+      <y>490</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -559,6 +559,175 @@
     <property name="text">
      <string>默认</string>
     </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>681</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>YOLO参数</string>
+    </property>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>置信阈值：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="confThreshold_Label">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>20</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(173, 173, 173);</string>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="confThreshold_lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>20</y>
+       <width>110</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>非最大抑制：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="nmsThreshold_Label">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>50</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(173, 173, 173);</string>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="nmsThreshold_lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>50</y>
+       <width>110</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_13">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>图像网络高度：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_14">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>图像网络宽度：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="inpWidth_Label">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>80</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(173, 173, 173);</string>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="inpWidth_lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>80</y>
+       <width>110</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="inpHeight_lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>110</y>
+       <width>110</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="inpHeight_Label">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>110</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(173, 173, 173);</string>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>

@@ -2,6 +2,10 @@
 
 ImgClass cam1;
 ImgClass cam2;
+YoloDetect yolo1_l;
+YoloDetect yolo1_r;
+YoloDetect yolo2_l;
+YoloDetect yolo2_r;
 SplitImg split1;
 SplitImg split2;
 ContourReco contour1_l;

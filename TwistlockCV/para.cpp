@@ -1,8 +1,15 @@
 #include "para.h"
 
+// yolo参数
+float confThreshold = 0.4;
+float nmsThreshold = 0.3;
+int inpWidth = 416;
+int inpHeight = 416;
+// 匹配参数
 int featureType = 0;
 int featureCreatePara = 1000;
 double errorRange = 0.03;
+// 摄像头参数
 CamPara camPara1(1022.928968, -34.5373582, 0.732326515, -0.00660332);
 CamPara camPara2(1022.928968, -34.5373582, 0.732326515, -0.00660332);
 
@@ -27,7 +34,11 @@ ParaWindow::ParaWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	// 获取默认值
+	// 获取默认值******
+	confThreshold0 = confThreshold;
+	nmsThreshold0 = nmsThreshold;
+	inpWidth0 = inpWidth;
+	inpHeight0 = inpHeight;
 	featureType0 = featureType;
 	featureCreatePara0 = featureCreatePara;
 	errorRange0 = errorRange;
@@ -36,9 +47,13 @@ ParaWindow::ParaWindow(QWidget *parent)
 	updateLabel();
 }
 
-// 恢复默认按钮
+// 恢复默认按钮******
 void ParaWindow::on_default_pushButton_clicked()
 {
+	confThreshold = confThreshold0;
+	nmsThreshold = nmsThreshold0;
+	inpWidth = inpWidth0;
+	inpHeight = inpHeight0;
 	featureType = featureType0;
 	featureCreatePara = featureCreatePara0;
 	errorRange = errorRange0;
@@ -47,10 +62,19 @@ void ParaWindow::on_default_pushButton_clicked()
 	updateLabel();
 }
 
-// 更新所有显示标签
+// 更新所有显示标签******
 void ParaWindow::updateLabel()
 {
 	QString temp;
+	// yolo参数初始化
+	temp.sprintf("%.2f", confThreshold);
+	ui.confThreshold_Label->setText(temp);
+	temp.sprintf("%.2f", nmsThreshold);
+	ui.nmsThreshold_Label->setText(temp);
+	temp.sprintf("%d", inpWidth);
+	ui.inpWidth_Label->setText(temp);
+	temp.sprintf("%d", inpHeight);
+	ui.inpHeight_Label->setText(temp);
 	// 匹配参数初始化
 	ui.matchType_comboBox->setCurrentIndex(featureType);
 	if (0 == featureType) {
@@ -87,8 +111,45 @@ void ParaWindow::updateLabel()
 	ui.cameraPara3_Label_2->setText(temp);
 }
 
+// 修改按钮按下
 void ParaWindow::on_update_pushButton_clicked()
 {
+	if (!ui.confThreshold_lineEdit->text().isEmpty()) {
+		QString temp = ui.confThreshold_lineEdit->text();
+		bool isNum = QStringIsNum(temp);
+		if (isNum) {
+			confThreshold = temp.toDouble();
+			ui.confThreshold_Label->setText(temp);
+		}
+		ui.confThreshold_lineEdit->clear();
+	}
+	if (!ui.nmsThreshold_lineEdit->text().isEmpty()) {
+		QString temp = ui.nmsThreshold_lineEdit->text();
+		bool isNum = QStringIsNum(temp);
+		if (isNum) {
+			nmsThreshold = temp.toDouble();
+			ui.nmsThreshold_Label->setText(temp);
+		}
+		ui.nmsThreshold_lineEdit->clear();
+	}
+	if (!ui.inpWidth_lineEdit->text().isEmpty()) {
+		QString temp = ui.inpWidth_lineEdit->text();
+		bool isNum = QStringIsNum(temp);
+		if (isNum) {
+			inpWidth = temp.toDouble();
+			ui.inpWidth_Label->setText(temp);
+		}
+		ui.inpWidth_lineEdit->clear();
+	}
+	if (!ui.inpHeight_lineEdit->text().isEmpty()) {
+		QString temp = ui.inpHeight_lineEdit->text();
+		bool isNum = QStringIsNum(temp);
+		if (isNum) {
+			inpHeight = temp.toDouble();
+			ui.inpHeight_Label->setText(temp);
+		}
+		ui.inpHeight_lineEdit->clear();
+	}
 	//******************* 匹配参数 ********************//
 	switch (ui.matchType_comboBox->currentIndex())
 	{

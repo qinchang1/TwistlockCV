@@ -28,6 +28,10 @@ public:
 private:
 	Ui::ParaWindow ui;
 	// Ä¬ÈÏ²ÎÊı
+	float confThreshold0;
+	float nmsThreshold0;
+	int inpWidth0;
+	int inpHeight0;
 	int featureType0;
 	int featureCreatePara0;
 	double errorRange0;

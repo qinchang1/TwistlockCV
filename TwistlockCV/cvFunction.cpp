@@ -3,6 +3,13 @@
 extern int featureType;
 extern int featureCreatePara;
 extern double errorRange;
+extern float confThreshold;
+extern float nmsThreshold;
+extern int inpWidth;
+extern int inpHeight;
+string classesFile = "yolo3/coco.names";          //Names of classes
+String modelConfiguration = "yolo3/yolov3.cfg";   //Configuration file
+String modelWeights = "yolo3/yolov3.weights";     //Weight file
 
 bool ascendSort(vector<Point> a, vector<Point> b) {
 	return a.size() > b.size();
@@ -289,5 +296,55 @@ double FeatureMatch::distance(const CamPara &cam) {
 }
 
 bool FeatureMatch::isEmpty() {
+	return empty;
+}
+
+//*********************************************************//
+//******************* class YoloDetect ********************//
+
+// 构造函数
+YoloDetect::YoloDetect(){
+	// 载入类名
+	ifstream ifs(classesFile.c_str());
+	string line;
+	while (getline(ifs, line)) classes.push_back(line);
+	// 载入网络
+	net = readNetFromDarknet(modelConfiguration, modelWeights);
+	net.setPreferableBackend(DNN_BACKEND_OPENCV);
+	net.setPreferableTarget(DNN_TARGET_CPU);
+	cout << "yolo completed!" << endl;
+}
+
+// 处理函数
+void YoloDetect::fit(const Mat &src) {
+	frame = src.clone();
+	// Create a 4D blob from a frame.
+	blobFromImage(frame, blob, 1 / 255.0, cvSize(inpWidth, inpHeight), Scalar(0, 0, 0), true, false);
+	//Sets the input to the network
+	net.setInput(blob);
+	// Runs the forward pass to get output of the output layers
+	vector<Mat> outs;
+	net.forward(outs, getOutputsNames(net));
+}
+
+// Get the names of the output layers
+vector<String> YoloDetect::getOutputsNames(const Net& net)
+{
+	static vector<String> names;
+	if (names.empty())
+	{
+		//Get the indices of the output layers, i.e. the layers with unconnected outputs
+		vector<int> outLayers = net.getUnconnectedOutLayers();
+		//get the names of all the layers in the network
+		vector<String> layersNames = net.getLayerNames();
+		// Get the names of the output layers in names
+		names.resize(outLayers.size());
+		for (size_t i = 0; i < outLayers.size(); ++i)
+			names[i] = layersNames[outLayers[i] - 1];
+	}
+	return names;
+}
+
+bool YoloDetect::isEmpty() {
 	return empty;
 }

@@ -1,10 +1,13 @@
 #pragma once
 
+#include <fstream>
+#include <sstream>
 #include <iostream>
 #include <vector>  
 #include <algorithm>
 #include <cmath>
 #include <opencv2/core.hpp>  
+#include <opencv2/dnn.hpp>
 #include <opencv2/highgui.hpp>  
 #include <opencv2/imgproc.hpp>
 #include <opencv2/features2d.hpp>
@@ -13,6 +16,7 @@
 #include <para.h>
 
 using namespace cv;
+using namespace dnn;
 using namespace std;
 
 class parallax
@@ -85,6 +89,21 @@ public:
 	Mat outImg;
 	int goodNum, feaNum;
 	double px; //  ”≤Ó
+	bool isEmpty();
+private:
+	bool empty = true;
+};
+
+// YOLOÀ„∑®ºÏ≤‚
+class YoloDetect {
+public:
+	YoloDetect();
+	vector<string> classes; // ¥Ê¥¢¿‡√˚
+	Net net; // Õ¯¬Á
+	Mat frame, blob;
+	void fit(const Mat &src);
+	vector<String> getOutputsNames(const Net& net);
+
 	bool isEmpty();
 private:
 	bool empty = true;

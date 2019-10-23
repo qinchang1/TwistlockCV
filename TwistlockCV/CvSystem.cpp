@@ -21,6 +21,10 @@ extern CamPara camPara1;
 extern CamPara camPara2;
 
 //******** 处理后的图像 *********//
+extern YoloDetect yolo1_l;
+extern YoloDetect yolo1_r;
+extern YoloDetect yolo2_l;
+extern YoloDetect yolo2_r;
 extern SplitImg split1;
 extern SplitImg split2;
 extern ContourReco contour1_l;
@@ -34,6 +38,7 @@ extern FeatureMatch match2;
 CvSystem::CvSystem(QWidget *parent)
 	: QMainWindow(parent) {
 	ui.setupUi(this);
+	//YoloDetect::init(); // YOLO初始化函数
 	timer = new QTimer(this);
 	cam1fit = new Cam1Thread();
 	cam2fit = new Cam2Thread();
