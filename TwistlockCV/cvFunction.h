@@ -102,8 +102,9 @@ public:
 	Net net; // ÍøÂç
 	Mat frame, blob;
 	void fit(const Mat &src);
-	vector<String> getOutputsNames(const Net& net);
-
+	vector<String> getOutputsNames(const Net& net); // Get the names of the output layers
+	void postprocess(Mat& frame, const vector<Mat>& outs); // Remove the bounding boxes with low confidence using non-maxima suppression
+	void drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat& frame); // Draw the predicted bounding box
 	bool isEmpty();
 private:
 	bool empty = true;
