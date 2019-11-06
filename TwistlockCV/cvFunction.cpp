@@ -303,8 +303,8 @@ bool FeatureMatch::isEmpty() {
 //******************* class YoloDetect ********************//
 
 // 构造函数
-YoloDetect::YoloDetect(){
-
+YoloDetect::YoloDetect()
+{
 	// 载入类名
 	ifstream ifs(classesFile.c_str());
 	string line;
@@ -334,6 +334,19 @@ void YoloDetect::fit(const Mat &src)
 
 	// Remove the bounding boxes with low confidence
 	postprocess(frame, outs);
+
+	// Put efficiency information. The function getPerfProfile returns the overall time for inference(t) and the timings for each of the layers(in layersTimes)
+	vector<double> layersTimes;
+	double freq = getTickFrequency() / 1000;
+	double t = net.getPerfProfile(layersTimes) / freq;
+	string label = format("Inference time for a frame : %.2f ms", t);
+	putText(frame, label, Point(0, 15), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255));
+
+	/*
+	static const string kWinName = "Deep learning object detection in OpenCV";
+	namedWindow(kWinName, WINDOW_AUTOSIZE);
+	imshow(kWinName, frame);
+	*/
 }
 
 // Get the names of the output layers
@@ -403,6 +416,28 @@ void YoloDetect::postprocess(Mat& frame, const vector<Mat>& outs)
 		drawPred(classIds[idx], confidences[idx], box.x, box.y,
 			box.x + box.width, box.y + box.height, frame);
 	}
+}
+
+// Draw the predicted bounding box
+void YoloDetect::drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat& frame)
+{
+	//Draw a rectangle displaying the bounding box
+	rectangle(frame, Point(left, top), Point(right, bottom), Scalar(208, 244, 64), 3);
+
+	//Get the label for the class name and its confidence
+	string label = format("%.2f", conf);
+	if (!classes.empty())
+	{
+		CV_Assert(classId < (int)classes.size());
+		label = classes[classId] + ":" + label;
+	}
+
+	//Display the label at the top of the bounding box
+	int baseLine;
+	Size labelSize = getTextSize(label, FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
+	top = max(top, labelSize.height);
+	rectangle(frame, Point(left, top - round(1.5*labelSize.height)), Point(left + round(1.5*labelSize.width), top + baseLine), Scalar(255, 255, 255), FILLED);
+	putText(frame, label, Point(left, top), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(0, 0, 0), 2);
 }
 
 bool YoloDetect::isEmpty() {

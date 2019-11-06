@@ -11,6 +11,7 @@ public:
 	Cam1Thread(QObject* parent = nullptr);
 //自定义发送的信号
 signals:
+	void finishYolo();
 	void finishSplit();
 	void finishMatch();
 	void finishAll();
@@ -25,6 +26,7 @@ public:
 	Cam2Thread(QObject* parent = nullptr);
 	//自定义发送的信号
 signals:
+	void finishYolo();
 	void finishSplit();
 	void finishMatch();
 	void finishAll();

@@ -22,9 +22,11 @@ extern CamPara camPara2;
 
 //******** 处理后的图像 *********//
 extern YoloDetect yolo1_l;
-extern YoloDetect yolo1_r;
+extern bool isYolo1;
+// extern YoloDetect yolo1_r;
 extern YoloDetect yolo2_l;
-extern YoloDetect yolo2_r;
+extern bool isYolo2;
+// extern YoloDetect yolo2_r;
 extern SplitImg split1;
 extern SplitImg split2;
 extern ContourReco contour1_l;
@@ -43,6 +45,8 @@ CvSystem::CvSystem(QWidget *parent)
 	cam1fit = new Cam1Thread();
 	cam2fit = new Cam2Thread();
 	connect(timer, SIGNAL(timeout()), this, SLOT(outputFrame()));
+	connect(cam1fit, &Cam1Thread::finishYolo, this, &CvSystem::showYoloImg1);
+	connect(cam2fit, &Cam2Thread::finishYolo, this, &CvSystem::showYoloImg2);
 	connect(cam1fit, &Cam1Thread::finishSplit, this, &CvSystem::showSplitImg1);
 	connect(cam2fit, &Cam2Thread::finishSplit, this, &CvSystem::showSplitImg2);
 	connect(cam1fit, &Cam1Thread::finishMatch, this, &CvSystem::showMatchImg1);
@@ -79,6 +83,10 @@ void CvSystem::on_paraSet_Action_triggered() {
 //********************************************************//
 //****************** Button Function *********************//
 //********************************************************//
+
+void CvSystem::on_testButton_clicked() {
+	ui.textBrowser->append("测试完成！");
+}
 
 void CvSystem::on_display_Button_clicked(){
 	// 清空各个图像控件
@@ -293,6 +301,21 @@ void CvSystem::readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label,c
 //***************** Detection Function *******************//
 //********************************************************//
 
+// 显示YOLO分割图像1
+void CvSystem::showYoloImg1() {
+	ui.extract_progressBar->setValue(100);
+	if (!yolo1_l.isEmpty()) {
+		displayImage(match1.outImg, ui.detectionFrame_Label_1, 0.5);
+		ui.extract_progressBar->setValue(10);
+		appendText("【完成】图像1Yolo检测");
+	}
+}
+
+// 显示YOLO分割图像2
+void CvSystem::showYoloImg2() {
+
+}
+
 // 显示分割后的图像1
 void CvSystem::showSplitImg1() {
 	ui.extract_progressBar->setValue(100);
@@ -373,3 +396,5 @@ void CvSystem::finishCamThread1() {
 void CvSystem::finishCamThread2() {
 	cam2fit->quit();
 }
+
+

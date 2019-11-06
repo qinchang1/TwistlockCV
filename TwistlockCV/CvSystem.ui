@@ -93,7 +93,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -104,7 +104,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>640</width>
+        <width>320</width>
         <height>240</height>
        </rect>
       </property>
@@ -123,6 +123,54 @@ background-color: rgb(200, 200, 200);</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_29">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>20</y>
+        <width>72</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>锁孔状态：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lockStatus_label_1">
+      <property name="geometry">
+       <rect>
+        <x>470</x>
+        <y>20</y>
+        <width>72</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(173, 173, 173);</string>
+      </property>
+      <property name="text">
+       <string>none</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="isYolo_checkBox_1">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>220</y>
+        <width>111</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否YOLO检测</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -623,7 +671,7 @@ background-color: rgb(200, 200, 200);</string>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
@@ -634,7 +682,7 @@ background-color: rgb(200, 200, 200);</string>
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>640</width>
+        <width>320</width>
         <height>240</height>
        </rect>
       </property>
@@ -653,6 +701,54 @@ background-color: rgb(200, 200, 200);</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_37">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>20</y>
+        <width>72</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>锁孔状态：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lockStatus_label_2">
+      <property name="geometry">
+       <rect>
+        <x>470</x>
+        <y>20</y>
+        <width>72</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(173, 173, 173);</string>
+      </property>
+      <property name="text">
+       <string>none</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="isYolo_checkBox_2">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>220</y>
+        <width>111</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否YOLO检测</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -1560,6 +1656,19 @@ background-color: rgb(200, 200, 200);</string>
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="testButton">
+    <property name="geometry">
+     <rect>
+      <x>1340</x>
+      <y>850</y>
+      <width>88</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>测试按钮</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

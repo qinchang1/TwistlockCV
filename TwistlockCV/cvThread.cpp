@@ -3,9 +3,11 @@
 ImgClass cam1;
 ImgClass cam2;
 YoloDetect yolo1_l;
-YoloDetect yolo1_r;
+bool isYolo1 = true;
+// YoloDetect yolo1_r;
 YoloDetect yolo2_l;
-YoloDetect yolo2_r;
+bool isYolo2 = true;
+// YoloDetect yolo2_r;
 SplitImg split1;
 SplitImg split2;
 ContourReco contour1_l;
@@ -23,6 +25,11 @@ void Cam1Thread::run(){
 	if (!cam1.isEmpty()) {
 		split1.fit(cam1.srcImg, cam1.binImg); // 图像左右分割并输入
 		if (!split1.isEmpty()) {
+			// YOLO检测
+			if (isYolo1) {
+				yolo1_l.fit(split1.left);
+				emit finishYolo(); // 发送yolo结束信号
+			}
 			// 图像取轮廓，最小轮廓框选
 			contour1_l.fit(split1.left, split1.leftBin);
 			contour1_r.fit(split1.right, split1.rightBin);
@@ -45,6 +52,11 @@ void Cam2Thread::run() {
 	if (!cam2.isEmpty()) {
 		split2.fit(cam2.srcImg, cam2.binImg); // 图像左右分割并输入
 		if (!split2.isEmpty()) {
+			// YOLO检测
+			if (isYolo2) {
+				yolo2_l.fit(split2.left);
+				emit finishYolo(); // 发送yolo结束信号
+			}
 			// 图像取轮廓，最小轮廓框选
 			contour2_l.fit(split2.left, split2.leftBin);
 			contour2_r.fit(split2.right, split2.rightBin);

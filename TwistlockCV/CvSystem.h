@@ -49,6 +49,8 @@ private:
 	void readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label, const binPara &bin);//transfer frame to label
 	void appendText(const QString &str);
 	void setText(const QString &str);
+	void showYoloImg1();
+	void showYoloImg2();
 	void showSplitImg1();
 	void showSplitImg2();
 	void showMatchImg1();
@@ -58,6 +60,7 @@ private:
 
 private slots:
 	void outputFrame();
+	void on_testButton_clicked();
 	void on_display_Button_clicked();
 	void on_capType_comboBox_currentIndexChanged();
 	void on_capType_comboBox_2_currentIndexChanged();
