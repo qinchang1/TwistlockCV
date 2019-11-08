@@ -241,6 +241,26 @@ void CvSystem::on_stop_Button_clicked(){
 	capture2.release();
 }
 
+// 开启yolo1选项
+void CvSystem::on_isYolo_checkBox_1_clicked() {
+	if (ui.isYolo_checkBox_1->isChecked()){
+		isYolo1 = true;
+	}
+	else{
+		isYolo1 = false;
+	}
+}
+
+// 开启yolo2选项
+void CvSystem::on_isYolo_checkBox_2_clicked() {
+	if (ui.isYolo_checkBox_2->isChecked()) {
+		isYolo2 = true;
+	}
+	else {
+		isYolo2 = false;
+	}
+}
+
 //********************************************************//
 //******************* Video Function *********************//
 //********************************************************//
@@ -305,15 +325,20 @@ void CvSystem::readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label,c
 void CvSystem::showYoloImg1() {
 	ui.extract_progressBar->setValue(100);
 	if (!yolo1_l.isEmpty()) {
-		displayImage(match1.outImg, ui.detectionFrame_Label_1, 0.5);
+		displayImage(yolo1_l.frame, ui.detectionFrame_Label_1, 0.5);
 		ui.extract_progressBar->setValue(10);
-		appendText("【完成】图像1Yolo检测");
+		appendText("【完成】图像1-Yolo检测");
 	}
 }
 
 // 显示YOLO分割图像2
 void CvSystem::showYoloImg2() {
-
+	ui.extract_progressBar_2->setValue(100);
+	if (!yolo2_l.isEmpty()) {
+		displayImage(yolo2_l.frame, ui.detectionFrame_Label_2, 0.5);
+		ui.extract_progressBar_2->setValue(10);
+		appendText("【完成】图像2-Yolo检测");
+	}
 }
 
 // 显示分割后的图像1
@@ -334,7 +359,7 @@ void CvSystem::showSplitImg1() {
 		displayImage(contour1_r.outImg, ui.rightFrame_Label_1, 0.5);
 	}
 	ui.extract_progressBar->setValue(10);
-	appendText("【完成】图像1左右分割");
+	appendText("【完成】图像1-左右分割");
 }
 
 // 显示分割后的图像2
@@ -355,7 +380,7 @@ void CvSystem::showSplitImg2() {
 		displayImage(contour2_r.outImg, ui.rightFrame_Label_2, 0.5);
 	}
 	ui.extract_progressBar_2->setValue(10);
-	appendText("【完成】图像2左右分割");
+	appendText("【完成】图像2-左右分割");
 }
 
 // 显示特征匹配后的图像1
@@ -364,13 +389,13 @@ void CvSystem::showMatchImg1() {
 	if (!match1.isEmpty()) {
 		// imshow("KeyPoints of imageL", match1.outImg);
 		displayImage(match1.outImg, ui.matchFrame_Label_1, 0.5);
-		appendText("【完成】图像1特征匹配");
+		appendText("【完成】图像1-特征匹配");
 		QString temp;
 		temp.sprintf("%d/%d", match1.goodNum,match1.feaNum);
 		ui.feaNum_label_1->setText(temp);
 		temp.sprintf("%.3f", match1.distance(camPara1));
 		ui.distance_label_1->setText(temp);
-		appendText("【完成】图像1视差测距");
+		appendText("【完成】图像1-视差测距");
 	}
 }
 
@@ -379,13 +404,13 @@ void CvSystem::showMatchImg2() {
 	ui.extract_progressBar_2->setValue(100);
 	if (!match2.isEmpty()) {
 		displayImage(match2.outImg, ui.matchFrame_Label_2, 0.5);
-		appendText("【完成】图像2特征匹配");
+		appendText("【完成】图像2-特征匹配");
 		QString temp;
 		temp.sprintf("%d/%d", match2.goodNum, match2.feaNum);
 		ui.feaNum_label_2->setText(temp);
 		temp.sprintf("%.3f", match2.distance(camPara2));
 		ui.distance_label_2->setText(temp);
-		appendText("【完成】图像2视差测距");
+		appendText("【完成】图像2-视差测距");
 	}
 }
 

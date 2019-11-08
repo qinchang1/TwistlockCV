@@ -66,6 +66,8 @@ private slots:
 	void on_capType_comboBox_2_currentIndexChanged();
 	void on_stop_Button_clicked();
 	void on_start_Button_clicked();
+	void on_isYolo_checkBox_1_clicked();
+	void on_isYolo_checkBox_2_clicked();
 
 	void on_preSet_Action_triggered();
 	void on_paraSet_Action_triggered();

@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
@@ -46,6 +47,7 @@ public:
     QLabel *detectionFrame_Label_1;
     QLabel *label_29;
     QLabel *lockStatus_label_1;
+    QCheckBox *isYolo_checkBox_1;
     QWidget *tab_2;
     QLabel *matchFrame_Label_1;
     QWidget *tab_3;
@@ -75,6 +77,7 @@ public:
     QLabel *detectionFrame_Label_2;
     QLabel *label_37;
     QLabel *lockStatus_label_2;
+    QCheckBox *isYolo_checkBox_2;
     QWidget *tab_5;
     QLabel *matchFrame_Label_2;
     QWidget *tab_6;
@@ -192,6 +195,10 @@ public:
         lockStatus_label_1->setGeometry(QRect(470, 20, 72, 20));
         lockStatus_label_1->setStyleSheet(QStringLiteral("background-color: rgb(173, 173, 173);"));
         lockStatus_label_1->setAlignment(Qt::AlignCenter);
+        isYolo_checkBox_1 = new QCheckBox(tab);
+        isYolo_checkBox_1->setObjectName(QStringLiteral("isYolo_checkBox_1"));
+        isYolo_checkBox_1->setGeometry(QRect(530, 220, 121, 21));
+        isYolo_checkBox_1->setChecked(true);
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
@@ -347,6 +354,10 @@ public:
         lockStatus_label_2->setGeometry(QRect(470, 20, 72, 20));
         lockStatus_label_2->setStyleSheet(QStringLiteral("background-color: rgb(173, 173, 173);"));
         lockStatus_label_2->setAlignment(Qt::AlignCenter);
+        isYolo_checkBox_2 = new QCheckBox(tab_4);
+        isYolo_checkBox_2->setObjectName(QStringLiteral("isYolo_checkBox_2"));
+        isYolo_checkBox_2->setGeometry(QRect(530, 220, 121, 21));
+        isYolo_checkBox_2->setChecked(true);
         tabWidget_2->addTab(tab_4, QString());
         tab_5 = new QWidget();
         tab_5->setObjectName(QStringLiteral("tab_5"));
@@ -590,7 +601,7 @@ public:
         CvSystemClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(CvSystemClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1800, 23));
+        menuBar->setGeometry(QRect(0, 0, 1800, 26));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         menu_2 = new QMenu(menuBar);
@@ -633,6 +644,7 @@ public:
         detectionFrame_Label_1->setText(QApplication::translate("CvSystemClass", "\347\233\256\346\240\207\346\243\200\346\265\213", Q_NULLPTR));
         label_29->setText(QApplication::translate("CvSystemClass", "\351\224\201\345\255\224\347\212\266\346\200\201\357\274\232", Q_NULLPTR));
         lockStatus_label_1->setText(QApplication::translate("CvSystemClass", "none", Q_NULLPTR));
+        isYolo_checkBox_1->setText(QApplication::translate("CvSystemClass", "\345\274\200\345\220\257YOLO\346\243\200\346\265\213", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("CvSystemClass", "\347\233\256\346\240\207\346\243\200\346\265\213", Q_NULLPTR));
         matchFrame_Label_1->setText(QApplication::translate("CvSystemClass", "\347\211\271\345\276\201\347\202\271\346\217\220\345\217\226", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("CvSystemClass", "\347\211\271\345\276\201\347\202\271\346\217\220\345\217\226", Q_NULLPTR));
@@ -667,6 +679,7 @@ public:
         detectionFrame_Label_2->setText(QApplication::translate("CvSystemClass", "\347\233\256\346\240\207\346\243\200\346\265\213", Q_NULLPTR));
         label_37->setText(QApplication::translate("CvSystemClass", "\351\224\201\345\255\224\347\212\266\346\200\201\357\274\232", Q_NULLPTR));
         lockStatus_label_2->setText(QApplication::translate("CvSystemClass", "none", Q_NULLPTR));
+        isYolo_checkBox_2->setText(QApplication::translate("CvSystemClass", "\345\274\200\345\220\257YOLO\346\243\200\346\265\213", Q_NULLPTR));
         tabWidget_2->setTabText(tabWidget_2->indexOf(tab_4), QApplication::translate("CvSystemClass", "\347\233\256\346\240\207\346\243\200\346\265\213", Q_NULLPTR));
         matchFrame_Label_2->setText(QApplication::translate("CvSystemClass", "\347\211\271\345\276\201\347\202\271\346\217\220\345\217\226", Q_NULLPTR));
         tabWidget_2->setTabText(tabWidget_2->indexOf(tab_5), QApplication::translate("CvSystemClass", "\347\211\271\345\276\201\347\202\271\346\217\220\345\217\226", Q_NULLPTR));

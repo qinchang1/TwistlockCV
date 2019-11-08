@@ -1,6 +1,6 @@
 //*************************************///
 ///////////Tongji University//////////////
-//////School of Mechanical Engineer///////
+////School of Mechanical Engineering/// //
 //////////////by Qin Chang 2017 Grade/////
 //*************************************///
 

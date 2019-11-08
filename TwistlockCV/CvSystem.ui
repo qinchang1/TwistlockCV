@@ -160,14 +160,14 @@ background-color: rgb(200, 200, 200);</string>
      <widget class="QCheckBox" name="isYolo_checkBox_1">
       <property name="geometry">
        <rect>
-        <x>540</x>
+        <x>530</x>
         <y>220</y>
-        <width>111</width>
+        <width>121</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>是否YOLO检测</string>
+       <string>开启YOLO检测</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -738,14 +738,14 @@ background-color: rgb(200, 200, 200);</string>
      <widget class="QCheckBox" name="isYolo_checkBox_2">
       <property name="geometry">
        <rect>
-        <x>540</x>
+        <x>530</x>
         <y>220</y>
-        <width>111</width>
+        <width>121</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>是否YOLO检测</string>
+       <string>开启YOLO检测</string>
       </property>
       <property name="checked">
        <bool>true</bool>

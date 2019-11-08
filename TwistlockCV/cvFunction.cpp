@@ -347,6 +347,8 @@ void YoloDetect::fit(const Mat &src)
 	namedWindow(kWinName, WINDOW_AUTOSIZE);
 	imshow(kWinName, frame);
 	*/
+
+	empty = false;
 }
 
 // Get the names of the output layers
