@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1800</width>
+    <width>1450</width>
     <height>950</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1800</width>
+    <width>1450</width>
     <height>950</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1800</width>
+    <width>1450</width>
     <height>950</height>
    </size>
   </property>
@@ -128,8 +128,8 @@ background-color: rgb(200, 200, 200);</string>
      <widget class="QLabel" name="label_29">
       <property name="geometry">
        <rect>
-        <x>390</x>
-        <y>20</y>
+        <x>340</x>
+        <y>10</y>
         <width>72</width>
         <height>20</height>
        </rect>
@@ -141,8 +141,8 @@ background-color: rgb(200, 200, 200);</string>
      <widget class="QLabel" name="lockStatus_label_1">
       <property name="geometry">
        <rect>
-        <x>470</x>
-        <y>20</y>
+        <x>420</x>
+        <y>10</y>
         <width>72</width>
         <height>20</height>
        </rect>
@@ -160,8 +160,8 @@ background-color: rgb(200, 200, 200);</string>
      <widget class="QCheckBox" name="isYolo_checkBox_1">
       <property name="geometry">
        <rect>
-        <x>530</x>
-        <y>220</y>
+        <x>520</x>
+        <y>10</y>
         <width>121</width>
         <height>21</height>
        </rect>
@@ -171,6 +171,16 @@ background-color: rgb(200, 200, 200);</string>
       </property>
       <property name="checked">
        <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="yolo_textBrowser_1">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>40</y>
+        <width>301</width>
+        <height>191</height>
+       </rect>
       </property>
      </widget>
     </widget>
@@ -336,8 +346,8 @@ background-color: rgb(200, 200, 200);</string>
    <widget class="QLabel" name="label_X">
     <property name="geometry">
      <rect>
-      <x>1560</x>
-      <y>40</y>
+      <x>1180</x>
+      <y>610</y>
       <width>111</width>
       <height>25</height>
      </rect>
@@ -360,8 +370,8 @@ background-color: rgb(200, 200, 200);</string>
    <widget class="QLabel" name="label_Z">
     <property name="geometry">
      <rect>
-      <x>1560</x>
-      <y>120</y>
+      <x>1180</x>
+      <y>690</y>
       <width>111</width>
       <height>25</height>
      </rect>
@@ -384,8 +394,8 @@ background-color: rgb(200, 200, 200);</string>
    <widget class="QLabel" name="label_A">
     <property name="geometry">
      <rect>
-      <x>1560</x>
-      <y>160</y>
+      <x>1180</x>
+      <y>730</y>
       <width>111</width>
       <height>25</height>
      </rect>
@@ -408,8 +418,8 @@ background-color: rgb(200, 200, 200);</string>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>1480</x>
-      <y>40</y>
+      <x>1100</x>
+      <y>610</y>
       <width>80</width>
       <height>25</height>
      </rect>
@@ -426,8 +436,8 @@ background-color: rgb(200, 200, 200);</string>
    <widget class="QLabel" name="label_Y">
     <property name="geometry">
      <rect>
-      <x>1560</x>
-      <y>80</y>
+      <x>1180</x>
+      <y>650</y>
       <width>111</width>
       <height>25</height>
      </rect>
@@ -450,8 +460,8 @@ background-color: rgb(200, 200, 200);</string>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>1480</x>
-      <y>80</y>
+      <x>1100</x>
+      <y>650</y>
       <width>80</width>
       <height>25</height>
      </rect>
@@ -468,8 +478,8 @@ background-color: rgb(200, 200, 200);</string>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>1480</x>
-      <y>120</y>
+      <x>1100</x>
+      <y>690</y>
       <width>80</width>
       <height>25</height>
      </rect>
@@ -486,8 +496,8 @@ background-color: rgb(200, 200, 200);</string>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>1480</x>
-      <y>160</y>
+      <x>1100</x>
+      <y>730</y>
       <width>80</width>
       <height>25</height>
      </rect>
@@ -501,11 +511,11 @@ background-color: rgb(200, 200, 200);</string>
      <string>A偏角：</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_A_2">
+   <widget class="QLabel" name="label_B">
     <property name="geometry">
      <rect>
-      <x>1560</x>
-      <y>200</y>
+      <x>1180</x>
+      <y>770</y>
       <width>111</width>
       <height>25</height>
      </rect>
@@ -528,8 +538,8 @@ background-color: rgb(200, 200, 200);</string>
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>1480</x>
-      <y>200</y>
+      <x>1100</x>
+      <y>770</y>
       <width>80</width>
       <height>25</height>
      </rect>
@@ -706,8 +716,8 @@ background-color: rgb(200, 200, 200);</string>
      <widget class="QLabel" name="label_37">
       <property name="geometry">
        <rect>
-        <x>390</x>
-        <y>20</y>
+        <x>340</x>
+        <y>10</y>
         <width>72</width>
         <height>20</height>
        </rect>
@@ -719,8 +729,8 @@ background-color: rgb(200, 200, 200);</string>
      <widget class="QLabel" name="lockStatus_label_2">
       <property name="geometry">
        <rect>
-        <x>470</x>
-        <y>20</y>
+        <x>420</x>
+        <y>10</y>
         <width>72</width>
         <height>20</height>
        </rect>
@@ -738,8 +748,8 @@ background-color: rgb(200, 200, 200);</string>
      <widget class="QCheckBox" name="isYolo_checkBox_2">
       <property name="geometry">
        <rect>
-        <x>530</x>
-        <y>220</y>
+        <x>510</x>
+        <y>10</y>
         <width>121</width>
         <height>21</height>
        </rect>
@@ -749,6 +759,16 @@ background-color: rgb(200, 200, 200);</string>
       </property>
       <property name="checked">
        <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="yolo_textBrowser_2">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>40</y>
+        <width>301</width>
+        <height>191</height>
+       </rect>
       </property>
      </widget>
     </widget>
@@ -887,7 +907,7 @@ background-color: rgb(200, 200, 200);</string>
      <rect>
       <x>660</x>
       <y>560</y>
-      <width>661</width>
+      <width>411</width>
       <height>331</height>
      </rect>
     </property>
@@ -1218,10 +1238,10 @@ background-color: rgb(200, 200, 200);</string>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>1660</x>
-      <y>700</y>
+      <x>1320</x>
+      <y>570</y>
       <width>121</width>
-      <height>181</height>
+      <height>321</height>
      </rect>
     </property>
     <property name="title">
@@ -1231,53 +1251,55 @@ background-color: rgb(200, 200, 200);</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>30</y>
+       <y>20</y>
        <width>100</width>
-       <height>35</height>
+       <height>91</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>宋体</family>
-       <pointsize>10</pointsize>
+       <pointsize>15</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>视频导入</string>
+      <string>视频
+导入</string>
      </property>
     </widget>
     <widget class="QPushButton" name="start_Button">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>80</y>
+       <y>120</y>
        <width>100</width>
-       <height>35</height>
+       <height>91</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>宋体</family>
-       <pointsize>10</pointsize>
+       <pointsize>15</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>图像提取</string>
+      <string>图像
+提取</string>
      </property>
     </widget>
     <widget class="QPushButton" name="stop_Button">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>130</y>
+       <y>220</y>
        <width>100</width>
-       <height>35</height>
+       <height>91</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>宋体</family>
-       <pointsize>10</pointsize>
+       <pointsize>15</pointsize>
       </font>
      </property>
      <property name="text">
@@ -1660,10 +1682,10 @@ background-color: rgb(200, 200, 200);</string>
    <widget class="QPushButton" name="testButton">
     <property name="geometry">
      <rect>
-      <x>1340</x>
-      <y>850</y>
-      <width>88</width>
-      <height>33</height>
+      <x>1090</x>
+      <y>842</y>
+      <width>211</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -1676,7 +1698,7 @@ background-color: rgb(200, 200, 200);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1800</width>
+     <width>1450</width>
      <height>26</height>
     </rect>
    </property>

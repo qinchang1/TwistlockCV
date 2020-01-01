@@ -326,6 +326,11 @@ void CvSystem::showYoloImg1() {
 	ui.extract_progressBar->setValue(100);
 	if (!yolo1_l.isEmpty()) {
 		displayImage(yolo1_l.frame, ui.detectionFrame_Label_1, 0.5);
+		for (int i = 0; i < yolo1_l.classData.size(); i++)
+		{
+			QString temp = QString::fromStdString(yolo1_l.classData[i].out());
+			ui.yolo_textBrowser_1->append(temp);
+		}
 		ui.extract_progressBar->setValue(10);
 		appendText("¡¾Íê³É¡¿Í¼Ïñ1-Yolo¼ì²â");
 	}
@@ -336,6 +341,11 @@ void CvSystem::showYoloImg2() {
 	ui.extract_progressBar_2->setValue(100);
 	if (!yolo2_l.isEmpty()) {
 		displayImage(yolo2_l.frame, ui.detectionFrame_Label_2, 0.5);
+		for (int i = 0; i < yolo2_l.classData.size(); i++)
+		{
+			QString temp = QString::fromStdString(yolo2_l.classData[i].out());
+			ui.yolo_textBrowser_2->append(temp);
+		}
 		ui.extract_progressBar_2->setValue(10);
 		appendText("¡¾Íê³É¡¿Í¼Ïñ2-Yolo¼ì²â");
 	}
@@ -354,6 +364,7 @@ void CvSystem::showSplitImg1() {
 		ui.ceny_label_1->setText(temp);
 		temp.sprintf("%.3f", contour1_l.angle);
 		ui.angle_label_1->setText(temp);
+		ui.label_B->setText(temp);
 	}
 	if (!contour1_r.isEmpty()) {
 		displayImage(contour1_r.outImg, ui.rightFrame_Label_1, 0.5);
@@ -375,6 +386,7 @@ void CvSystem::showSplitImg2() {
 		ui.ceny_label_2->setText(temp);
 		temp.sprintf("%.3f", contour2_l.angle);
 		ui.angle_label_2->setText(temp);
+		ui.label_A->setText(temp);
 	}
 	if (!contour2_r.isEmpty()) {
 		displayImage(contour2_r.outImg, ui.rightFrame_Label_2, 0.5);
@@ -395,6 +407,7 @@ void CvSystem::showMatchImg1() {
 		ui.feaNum_label_1->setText(temp);
 		temp.sprintf("%.3f", match1.distance(camPara1));
 		ui.distance_label_1->setText(temp);
+		ui.label_X->setText(temp);
 		appendText("¡¾Íê³É¡¿Í¼Ïñ1-ÊÓ²î²â¾à");
 	}
 }
@@ -410,6 +423,7 @@ void CvSystem::showMatchImg2() {
 		ui.feaNum_label_2->setText(temp);
 		temp.sprintf("%.3f", match2.distance(camPara2));
 		ui.distance_label_2->setText(temp);
+		ui.label_Y->setText(temp);
 		appendText("¡¾Íê³É¡¿Í¼Ïñ2-ÊÓ²î²â¾à");
 	}
 }

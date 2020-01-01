@@ -19,8 +19,7 @@ using namespace cv;
 using namespace dnn;
 using namespace std;
 
-class parallax
-{
+class parallax{
 public:
 	double leftX;
 	double rightX;
@@ -29,6 +28,20 @@ public:
 		leftX = lx;
 		rightX = rx;
 		paraValue = leftX - rightX;
+	}
+};
+
+class yoloClass {
+public:
+	string name;
+	int left, top, right, bottom;
+	string score;
+	string out() {
+		string temp = name;
+		string para = format(":(%d,%d)(%d,%d) ", left,top,right,bottom);
+		temp = temp + para;
+		temp = temp + score;
+		return temp;
 	}
 };
 
@@ -101,10 +114,12 @@ public:
 	vector<string> classes; // ´æ´¢ÀàÃû
 	Net net; // ÍøÂç
 	Mat frame, blob;
+	vector<yoloClass> classData;
 	void fit(const Mat &src);
 	vector<String> getOutputsNames(const Net& net); // Get the names of the output layers
 	void postprocess(Mat& frame, const vector<Mat>& outs); // Remove the bounding boxes with low confidence using non-maxima suppression
 	void drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat& frame); // Draw the predicted bounding box
+	void clearData();
 	bool isEmpty();
 private:
 	bool empty = true;

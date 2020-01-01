@@ -320,6 +320,8 @@ YoloDetect::YoloDetect()
 // 处理函数
 void YoloDetect::fit(const Mat &src) 
 {
+	clearData();
+
 	frame = src.clone();
 
 	// Create a 4D blob from a frame.
@@ -424,10 +426,37 @@ void YoloDetect::postprocess(Mat& frame, const vector<Mat>& outs)
 void YoloDetect::drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat& frame)
 {
 	//Draw a rectangle displaying the bounding box
-	rectangle(frame, Point(left, top), Point(right, bottom), Scalar(208, 244, 64), 3);
+	switch (classId)
+	{
+	case 0: {
+		rectangle(frame, Point(left, top), Point(right, bottom), Scalar(255, 0, 0), 3);
+		break;
+	}
+	case 1: {
+		rectangle(frame, Point(left, top), Point(right, bottom), Scalar(0, 255, 0), 3);
+		break;
+	}
+	case 2: {
+		rectangle(frame, Point(left, top), Point(right, bottom), Scalar(0, 0, 255), 3);
+		break;
+	}
+	default:{
+		rectangle(frame, Point(left, top), Point(right, bottom), Scalar(208, 244, 64), 3);
+		break;
+	}
+	}
 
 	//Get the label for the class name and its confidence
 	string label = format("%.2f", conf);
+	// 加入对象列表
+	yoloClass temp;
+	temp.name = classes[classId];
+	temp.left = left;
+	temp.top = top;
+	temp.right = right;
+	temp.bottom = bottom;
+	temp.score = label;
+	classData.push_back(temp);
 	if (!classes.empty())
 	{
 		CV_Assert(classId < (int)classes.size());
@@ -440,6 +469,10 @@ void YoloDetect::drawPred(int classId, float conf, int left, int top, int right,
 	top = max(top, labelSize.height);
 	rectangle(frame, Point(left, top - round(1.5*labelSize.height)), Point(left + round(1.5*labelSize.width), top + baseLine), Scalar(255, 255, 255), FILLED);
 	putText(frame, label, Point(left, top), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(0, 0, 0), 2);
+}
+
+void YoloDetect::clearData() {
+	classData.clear();
 }
 
 bool YoloDetect::isEmpty() {
