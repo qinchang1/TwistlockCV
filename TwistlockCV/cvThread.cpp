@@ -27,7 +27,7 @@ void Cam1Thread::run(){
 		if (!split1.isEmpty()) {
 			// YOLO检测
 			if (isYolo1) {
-				yolo1_l.fit(split1.left);
+				yolo1_l.fit(split1.srcImg);
 				emit finishYolo(); // 发送yolo结束信号
 			}
 			// 图像取轮廓，最小轮廓框选
@@ -35,7 +35,7 @@ void Cam1Thread::run(){
 			contour1_r.fit(split1.right, split1.rightBin);
 			emit finishSplit(); // 发送分割结束信号
 			if ((!contour1_l.isEmpty()) && (!contour1_r.isEmpty())) {
-				match1.fit(contour1_l, contour1_r); // 特征点匹配
+				match1.fit(contour1_l, contour1_r, yolo1_l.twistlock_l, yolo1_l.twistlock_r);// 特征点匹配
 				emit finishMatch(); // 发送匹配结束信号
 			}
 		}
@@ -54,7 +54,7 @@ void Cam2Thread::run() {
 		if (!split2.isEmpty()) {
 			// YOLO检测
 			if (isYolo2) {
-				yolo2_l.fit(split2.left);
+				yolo2_l.fit(split2.srcImg);
 				emit finishYolo(); // 发送yolo结束信号
 			}
 			// 图像取轮廓，最小轮廓框选
@@ -62,7 +62,7 @@ void Cam2Thread::run() {
 			contour2_r.fit(split2.right, split2.rightBin);
 			emit finishSplit(); // 发送分割结束信号
 			if ((!contour2_l.isEmpty()) && (!contour2_r.isEmpty())) {
-				match2.fit(contour2_l, contour2_r); // 特征点匹配
+				match2.fit(contour2_l, contour2_r, yolo2_l.twistlock_l, yolo2_l.twistlock_r); // 特征点匹配
 				emit finishMatch(); // 发送匹配结束信号
 			}
 		}

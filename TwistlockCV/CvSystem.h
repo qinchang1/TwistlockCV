@@ -20,6 +20,7 @@
 #include "cvThread.h"
 #include "pre.h"
 #include "para.h"
+#include "multi.h"
 
 using namespace std;
 
@@ -37,6 +38,7 @@ private:
 	Ui::CvSystemClass ui;
 	preWindow preWin;
 	ParaWindow paraWin;
+	MultiWindow multiWin;
 
 	QTimer *timer;
 	VideoCapture capture1,capture2;
@@ -71,6 +73,7 @@ private slots:
 
 	void on_preSet_Action_triggered();
 	void on_paraSet_Action_triggered();
+	void on_multiSet_action_triggered();
 };
 
 enum CapType

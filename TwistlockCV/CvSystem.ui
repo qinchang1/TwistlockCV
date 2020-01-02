@@ -1729,6 +1729,7 @@ background-color: rgb(200, 200, 200);</string>
    <addaction name="separator"/>
    <addaction name="paraSet_Action"/>
    <addaction name="separator"/>
+   <addaction name="multiSet_action"/>
   </widget>
   <action name="new_action">
    <property name="text">
@@ -1753,6 +1754,11 @@ background-color: rgb(200, 200, 200);</string>
   <action name="actions">
    <property name="text">
     <string>关于</string>
+   </property>
+  </action>
+  <action name="multiSet_action">
+   <property name="text">
+    <string>多目设置</string>
    </property>
   </action>
  </widget>

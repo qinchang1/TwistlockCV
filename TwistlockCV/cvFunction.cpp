@@ -132,7 +132,7 @@ bool ContourReco::isEmpty() {
 //***********************************************************//
 //******************* class FeatureMatch ********************//
 
-void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
+void FeatureMatch::fit(const ContourReco &left, const ContourReco &right, const yoloClass &lock_l, const yoloClass &lock_r) {
 	leftImg = left.srcImg.clone();
 	rightImg = right.srcImg.clone();
 	// 高斯模糊
@@ -162,6 +162,20 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 		vector<DMatch> matchesAll;
 		// GMS算法: Grid-based Motion Statistics for Fast, Ultra-robust Feature Correspondence CVPR2017
 		matcher.match(descriptors_1, descriptors_2, matchesAll);
+
+		//筛选YOLO区域
+		if (!lock_l.empty) {
+			for (int i = 0; i < matchesAll.size(); i++)
+			{
+				int x = keyPoint1[matchesAll[i].queryIdx].pt.x;
+				int y = keyPoint1[matchesAll[i].queryIdx].pt.y;
+				if (x<lock_l.left || x>lock_l.right || y<lock_l.top || y>lock_l.bottom) {
+					matchesAll.erase(matchesAll.begin() + i);
+					i--;
+				}
+			}
+		}
+
 		xfeatures2d::matchGMS(leftImg.size(), rightImg.size(), keyPoint1, keyPoint2, matchesAll, goodMatches);
 		// 合并左右图像
 		drawMatches(leftImg, keyPoint1, rightImg, keyPoint2, goodMatches, outImg, Scalar::all(-1), Scalar::all(-1),
@@ -250,7 +264,14 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 	}
 
 	// ***************************** 计算视差 ************************************ //
-	if(flagMatch){
+	if ((!lock_l.empty)&&(!lock_r.empty)) {
+		double x1 = (lock_l.left + lock_l.right) / 2;
+		double x2 = (lock_r.left + lock_r.right - leftImg.size().width * 2) / 2;
+		px = x1 - x2;
+		cout << "使用yolo计算视差：" << px << endl;
+		empty = false;
+	}
+	else if(flagMatch&&(goodMatches.size()>0)){
 		vector<parallax>para;
 		feaNum = goodMatches.size();
 		for (int i = 0; i < goodMatches.size(); i++){
@@ -279,6 +300,12 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right) {
 		}
 		px = paraSum / para.size();
 		// cout << "Parallax is " << paraMean << " pixel." << endl;
+		cout << "使用特征点计算视差：" << px << endl;
+		empty = false;
+	}
+	else {
+		cout << "视差出错了！" << endl;
+		px = 100;
 		empty = false;
 	}
 }
@@ -457,6 +484,23 @@ void YoloDetect::drawPred(int classId, float conf, int left, int top, int right,
 	temp.bottom = bottom;
 	temp.score = label;
 	classData.push_back(temp);
+	// 判断是不是扭锁并加入信息
+	if (temp.name == "twistlock") {
+		if (twistlock_l.empty) {
+			twistlock_l = temp;
+			twistlock_l.empty = false;
+		}
+		else if (twistlock_l.left > temp.left) {
+			twistlock_r = twistlock_l;
+			twistlock_r.empty = false;
+			twistlock_l = temp;
+			twistlock_l.empty = false;
+		}
+		else {
+			twistlock_r = temp;
+			twistlock_r.empty = false;
+		}
+	}
 	if (!classes.empty())
 	{
 		CV_Assert(classId < (int)classes.size());

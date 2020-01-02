@@ -54,6 +54,9 @@
     <ClCompile Include="cvThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="multi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="CvSystem.h">
@@ -68,6 +71,9 @@
     <QtMoc Include="cvThread.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="multi.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="CvSystem.ui">
@@ -79,9 +85,15 @@
     <QtUic Include="Para.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="Multi.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="CvSystem.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtRcc Include="Multi.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
   </ItemGroup>
@@ -98,5 +110,13 @@
     <ClInclude Include="GeneratedFiles\ui_Para.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_Multi.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="GeneratedFiles\multi.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

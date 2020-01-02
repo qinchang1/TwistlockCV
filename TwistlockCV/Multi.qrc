@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="multi">
+    <file>GeneratedFiles/multi.jpg</file>
+  </qresource>
+</RCC>

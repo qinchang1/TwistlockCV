@@ -80,6 +80,10 @@ void CvSystem::on_paraSet_Action_triggered() {
 	paraWin.show(); // 显示参数配置窗口
 }
 
+void CvSystem::on_multiSet_action_triggered() {
+	multiWin.show(); // 显示多目参数配置窗口
+}
+
 //********************************************************//
 //****************** Button Function *********************//
 //********************************************************//
@@ -111,7 +115,7 @@ void CvSystem::on_display_Button_clicked(){
 	case 2:
 	{
 		ui.textBrowser->append("导入摄像头1...");
-		capture1.open(0);
+		capture1.open("01.mp4");
 		break;
 	}
 	default:
@@ -137,7 +141,7 @@ void CvSystem::on_display_Button_clicked(){
 	case 2:
 	{
 		ui.textBrowser->append("导入摄像头2...");
-		capture2.open(1);
+		capture2.open("02.mp4");
 		break;
 	}
 	default:
@@ -325,7 +329,8 @@ void CvSystem::readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label,c
 void CvSystem::showYoloImg1() {
 	ui.extract_progressBar->setValue(100);
 	if (!yolo1_l.isEmpty()) {
-		displayImage(yolo1_l.frame, ui.detectionFrame_Label_1, 0.5);
+		Mat yolo_l = yolo1_l.frame(Rect(0, 0, yolo1_l.frame.size().width / 2, yolo1_l.frame.size().height));
+		displayImage(yolo_l, ui.detectionFrame_Label_1, 0.5);
 		for (int i = 0; i < yolo1_l.classData.size(); i++)
 		{
 			QString temp = QString::fromStdString(yolo1_l.classData[i].out());
@@ -340,7 +345,8 @@ void CvSystem::showYoloImg1() {
 void CvSystem::showYoloImg2() {
 	ui.extract_progressBar_2->setValue(100);
 	if (!yolo2_l.isEmpty()) {
-		displayImage(yolo2_l.frame, ui.detectionFrame_Label_2, 0.5);
+		Mat yolo_l = yolo2_l.frame(Rect(0, 0, yolo2_l.frame.size().width / 2, yolo2_l.frame.size().height));
+		displayImage(yolo_l, ui.detectionFrame_Label_2, 0.5);
 		for (int i = 0; i < yolo2_l.classData.size(); i++)
 		{
 			QString temp = QString::fromStdString(yolo2_l.classData[i].out());

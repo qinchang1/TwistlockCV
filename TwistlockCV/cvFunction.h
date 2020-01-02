@@ -43,6 +43,7 @@ public:
 		temp = temp + score;
 		return temp;
 	}
+	bool empty = true;
 };
 
 //video\camera stream
@@ -95,7 +96,7 @@ private:
 // ÌØÕ÷µã¼ì²â
 class FeatureMatch {
 public:
-	void fit(const ContourReco &left, const ContourReco &right);
+	void fit(const ContourReco &left, const ContourReco &right, const yoloClass &lock_l, const yoloClass &lock_r);
 	double distance(const CamPara &cam);
 	Mat leftImg;
 	Mat rightImg;
@@ -115,6 +116,8 @@ public:
 	Net net; // ÍøÂç
 	Mat frame, blob;
 	vector<yoloClass> classData;
+	yoloClass twistlock_l;
+	yoloClass twistlock_r;
 	void fit(const Mat &src);
 	vector<String> getOutputsNames(const Net& net); // Get the names of the output layers
 	void postprocess(Mat& frame, const vector<Mat>& outs); // Remove the bounding boxes with low confidence using non-maxima suppression
