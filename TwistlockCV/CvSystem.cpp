@@ -109,7 +109,7 @@ void CvSystem::on_display_Button_clicked(){
 	case 1:
 	{
 		ui.textBrowser->append("导入演示视频1...");
-		capture1.open("simple1.mp4");
+		capture1.open("cam01.mp4");
 		break;
 	}
 	case 2:
@@ -135,7 +135,7 @@ void CvSystem::on_display_Button_clicked(){
 	case 1:
 	{
 		ui.textBrowser->append("导入演示视频2...");
-		capture2.open("simple2.mp4");
+		capture2.open("cam02.mp4");
 		break;
 	}
 	case 2:
