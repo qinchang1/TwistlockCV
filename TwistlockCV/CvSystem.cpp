@@ -208,7 +208,13 @@ void CvSystem::on_capType_comboBox_2_currentIndexChanged(){
 void CvSystem::on_start_Button_clicked() {
 	appendText("开始处理...");
 	appendText("【开始】图像处理...");
+	// 初始化各种控件数据
+	ui.yolo_textBrowser_1->clear();
+	ui.yolo_textBrowser_2->clear();
+	ui.lockStatus_label_1->setText("none");
+	ui.lockStatus_label_2->setText("none");
 	mergeFlag = false;
+	// 特征匹配算法
 	if (0 == featureType) {
 		ui.matchType_Label->setText("ORB");
 	}
@@ -302,6 +308,7 @@ void CvSystem::outputFrame(){
 	if (capType2){
 		readFrame(capture2, frame2, ui.videoLabel_2,bin2);//input camera2
 	}
+
 	if (isBinary){
 		QString temp = "二值图像";
 		ui.displayStatus_Label->setText(temp);
@@ -314,8 +321,10 @@ void CvSystem::outputFrame(){
 }
 
 //read the current frame
-void CvSystem::readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label,const binPara &bin) {
+void CvSystem::readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label,const binPara &bin) {	
+	
 	capture >> frame.srcFrame;
+
 	if (frame.srcFrame.empty()){
 		ui.textBrowser->append("导入视频源为空！");
 	}else if (isBinary)	{
@@ -340,6 +349,7 @@ void CvSystem::showYoloImg1() {
 		displayImage(yolo_l, ui.detectionFrame_Label_1, 0.5);
 		for (int i = 0; i < yolo1_l.classData.size(); i++)
 		{
+			ui.lockStatus_label_1->setText("lock");
 			QString temp = QString::fromStdString(yolo1_l.classData[i].out());
 			ui.yolo_textBrowser_1->append(temp);
 		}
@@ -356,6 +366,7 @@ void CvSystem::showYoloImg2() {
 		displayImage(yolo_l, ui.detectionFrame_Label_2, 0.5);
 		for (int i = 0; i < yolo2_l.classData.size(); i++)
 		{
+			ui.lockStatus_label_2->setText("lock");
 			QString temp = QString::fromStdString(yolo2_l.classData[i].out());
 			ui.yolo_textBrowser_2->append(temp);
 		}

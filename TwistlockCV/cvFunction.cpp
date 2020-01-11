@@ -269,11 +269,11 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right, const 
 		double x2 = (lock_r.left + lock_r.right - leftImg.size().width * 2) / 2;
 		px = x1 - x2;
 		double y1 = (lock_l.bottom + lock_l.top) / 2;
-		cout << "使用yolo计算视差：" << px << endl;
+		cout << "use yolo calculate:" << px << endl;
 		u = x1 - leftImg.size().width / 2;
 		v = leftImg.size().height / 2 - y1;
 		s = lock_l.s;
-		cout << "使用yolo计算位置：" << u << "  " << v << endl;
+		cout << "use yolo locate:" << u << "  " << v << endl;
 		empty = false;
 	}
 	else if(flagMatch&&(goodMatches.size()>0)){
@@ -305,13 +305,13 @@ void FeatureMatch::fit(const ContourReco &left, const ContourReco &right, const 
 		}
 		px = paraSum / para.size();
 		// cout << "Parallax is " << paraMean << " pixel." << endl;
-		cout << "使用特征点计算视差：" << px << endl;
+		cout << "use feature calculate:" << px << endl;
 		u = v = 0;
 		s = 1;
 		empty = false;
 	}
 	else {
-		cout << "视差出错了！" << endl;
+		cout << "px error!" << endl;
 		u = v = 0;
 		s = 1;
 		px = 100;
@@ -537,6 +537,8 @@ void YoloDetect::drawPred(int classId, float conf, int left, int top, int right,
 }
 
 void YoloDetect::clearData() {
+	twistlock_l.empty = true;
+	twistlock_r.empty = true;
 	classData.clear();
 }
 
