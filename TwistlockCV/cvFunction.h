@@ -36,6 +36,7 @@ public:
 	string name;
 	int left, top, right, bottom;
 	string score;
+	double s;
 	string out() {
 		string temp = name;
 		string para = format(":(%d,%d)(%d,%d) ", left,top,right,bottom);
@@ -98,11 +99,14 @@ class FeatureMatch {
 public:
 	void fit(const ContourReco &left, const ContourReco &right, const yoloClass &lock_l, const yoloClass &lock_r);
 	double distance(const CamPara &cam);
+	double height(const double k, const double b, const double dis, const double v);
 	Mat leftImg;
 	Mat rightImg;
 	Mat outImg;
 	int goodNum, feaNum;
 	double px; // 视差
+	double u, v; // 目标在图像中的像素坐标
+	double s; //目标检测置信度
 	bool isEmpty();
 private:
 	bool empty = true;

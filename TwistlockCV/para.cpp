@@ -12,6 +12,11 @@ double errorRange = 0.03;
 // 摄像头参数
 CamPara camPara1(1022.928968, -34.5373582, 0.732326515, -0.00660332);
 CamPara camPara2(1022.928968, -34.5373582, 0.732326515, -0.00660332);
+// 定位参数
+double kCam1 = 0.002351668;
+double kCam2 = 0.002351668;
+double bCam1 = 1.444095622;
+double bCam2 = 1.444095622;
 
 // 判断是不是数字的函数
 bool QStringIsNum(QString src)
@@ -44,6 +49,10 @@ ParaWindow::ParaWindow(QWidget *parent)
 	errorRange0 = errorRange;
 	camPara01 = camPara1;
 	camPara02 = camPara2;
+	kCam01 = kCam1;
+	kCam02 = kCam2;
+	bCam01 = bCam1;
+	bCam02 = bCam2;
 	updateLabel();
 }
 
@@ -59,6 +68,10 @@ void ParaWindow::on_default_pushButton_clicked()
 	errorRange = errorRange0;
 	camPara1 = camPara01;
 	camPara2 = camPara02;
+	kCam1 = kCam01;
+	kCam2 = kCam02;
+	bCam1 = bCam01;
+	bCam2 = bCam02;
 	updateLabel();
 }
 
@@ -109,6 +122,15 @@ void ParaWindow::updateLabel()
 	ui.cameraPara2_Label_2->setText(temp);
 	temp.sprintf("%.9f", camPara2.para3);
 	ui.cameraPara3_Label_2->setText(temp);
+	// 定位参数初始化
+	temp.sprintf("%.9f", kCam1);
+	ui.k_Para_Label_1->setText(temp);
+	temp.sprintf("%.9f", kCam2);
+	ui.k_Para_Label_2->setText(temp);
+	temp.sprintf("%.9f", bCam1);
+	ui.b_Para_Label_1->setText(temp);
+	temp.sprintf("%.9f", bCam2);
+	ui.b_Para_Label_2->setText(temp);
 }
 
 // 修改按钮按下
@@ -275,6 +297,43 @@ void ParaWindow::on_update_pushButton_clicked()
 			ui.cameraPara3_Label_2->setText(temp);
 		}
 		ui.cameraPara3_lineEdit_2->clear();
+	}
+	//******************* 定位参数 ********************//
+	if (!ui.k_Para_lineEdit_1->text().isEmpty()) {
+		QString temp = ui.k_Para_lineEdit_1->text();
+		bool isNum = QStringIsNum(temp);
+		if (isNum) {
+			kCam1 = temp.toDouble();
+			ui.k_Para_lineEdit_1->setText(temp);
+		}
+		ui.k_Para_lineEdit_1->clear();
+	}
+	if (!ui.k_Para_lineEdit_2->text().isEmpty()) {
+		QString temp = ui.k_Para_lineEdit_2->text();
+		bool isNum = QStringIsNum(temp);
+		if (isNum) {
+			kCam2 = temp.toDouble();
+			ui.k_Para_lineEdit_2->setText(temp);
+		}
+		ui.k_Para_lineEdit_2->clear();
+	}
+	if (!ui.b_Para_lineEdit_1->text().isEmpty()) {
+		QString temp = ui.b_Para_lineEdit_1->text();
+		bool isNum = QStringIsNum(temp);
+		if (isNum) {
+			bCam1 = temp.toDouble();
+			ui.b_Para_lineEdit_1->setText(temp);
+		}
+		ui.b_Para_lineEdit_1->clear();
+	}
+	if (!ui.b_Para_lineEdit_2->text().isEmpty()) {
+		QString temp = ui.b_Para_lineEdit_2->text();
+		bool isNum = QStringIsNum(temp);
+		if (isNum) {
+			bCam2 = temp.toDouble();
+			ui.b_Para_lineEdit_2->setText(temp);
+		}
+		ui.b_Para_lineEdit_2->clear();
 	}
 }
 

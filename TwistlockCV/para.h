@@ -37,6 +37,10 @@ private:
 	double errorRange0;
 	CamPara camPara01;
 	CamPara camPara02;
+	double kCam01;
+	double kCam02;
+	double bCam01;
+	double bCam02;
 
 private slots:
 	void on_cancel_pushButton_clicked();

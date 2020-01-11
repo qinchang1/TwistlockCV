@@ -97,7 +97,6 @@ public:
     QLabel *label_26;
     QLabel *label_27;
     QLabel *label_28;
-    QPushButton *pushButton;
     QPushButton *pushButton_3;
     QPushButton *pushButton_4;
     QPushButton *pushButton_5;
@@ -135,6 +134,8 @@ public:
     QLabel *label_17;
     QLabel *label_13;
     QLabel *label_21;
+    QPushButton *pushButton_7;
+    QPushButton *pushButton;
     QGroupBox *groupBox_2;
     QPushButton *display_Button;
     QPushButton *start_Button;
@@ -474,9 +475,6 @@ public:
         label_28 = new QLabel(groupBox);
         label_28->setObjectName(QStringLiteral("label_28"));
         label_28->setGeometry(QRect(280, 150, 72, 20));
-        pushButton = new QPushButton(groupBox);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(300, 20, 101, 31));
         pushButton_3 = new QPushButton(groupBox);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
         pushButton_3->setGeometry(QRect(300, 100, 101, 31));
@@ -620,6 +618,12 @@ public:
         label_21->setGeometry(QRect(190, 170, 72, 20));
         label_21->setStyleSheet(QStringLiteral("background-color: rgb(173, 173, 173);"));
         label_21->setAlignment(Qt::AlignCenter);
+        pushButton_7 = new QPushButton(groupBox);
+        pushButton_7->setObjectName(QStringLiteral("pushButton_7"));
+        pushButton_7->setGeometry(QRect(190, 100, 101, 31));
+        pushButton = new QPushButton(groupBox);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(300, 20, 101, 31));
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(1320, 570, 121, 321));
@@ -834,7 +838,6 @@ public:
         label_26->setText(QApplication::translate("CvSystemClass", "off", Q_NULLPTR));
         label_27->setText(QApplication::translate("CvSystemClass", "off", Q_NULLPTR));
         label_28->setText(QApplication::translate("CvSystemClass", "\346\260\224\351\230\2001\357\274\232", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("CvSystemClass", "\347\273\247\347\224\265\345\231\250", Q_NULLPTR));
         pushButton_3->setText(QApplication::translate("CvSystemClass", "\345\205\250\350\277\233\346\260\224", Q_NULLPTR));
         pushButton_4->setText(QApplication::translate("CvSystemClass", "\345\205\250\346\224\276\346\260\224", Q_NULLPTR));
         pushButton_5->setText(QApplication::translate("CvSystemClass", "\345\235\220\346\240\207\346\270\205\351\233\266", Q_NULLPTR));
@@ -872,6 +875,8 @@ public:
         label_17->setText(QApplication::translate("CvSystemClass", "none", Q_NULLPTR));
         label_13->setText(QApplication::translate("CvSystemClass", "\345\205\263\350\212\2022\357\274\232", Q_NULLPTR));
         label_21->setText(QApplication::translate("CvSystemClass", "none", Q_NULLPTR));
+        pushButton_7->setText(QApplication::translate("CvSystemClass", "\344\270\211\346\214\207\346\216\247\345\210\266", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("CvSystemClass", "\347\224\265\346\272\220\345\274\200\345\205\263", Q_NULLPTR));
         groupBox_2->setTitle(QApplication::translate("CvSystemClass", "\345\237\272\346\234\254\346\223\215\344\275\234", Q_NULLPTR));
         display_Button->setText(QApplication::translate("CvSystemClass", "\350\247\206\351\242\221\n"
 "\345\257\274\345\205\245", Q_NULLPTR));

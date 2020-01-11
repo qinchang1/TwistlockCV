@@ -47,6 +47,11 @@ private:
 	Cam1Thread *cam1fit;
 	Cam2Thread *cam2fit;
 
+	double h1 = 0;
+	double h2 = 0;
+	double w1 = 0;
+	double w2 = 0;
+
 	void displayImage(Mat &src, QLabel *label, double ratio, bool isGray = 0);//display image by label
 	void readFrame(VideoCapture &capture, FrameImg &frame, QLabel *label, const binPara &bin);//transfer frame to label
 	void appendText(const QString &str);
@@ -59,6 +64,8 @@ private:
 	void showMatchImg2();
 	void finishCamThread1();
 	void finishCamThread2();
+	double mergeHeight(double h1, double s1, double h2, double s2);
+	bool mergeFlag = false;
 
 private slots:
 	void outputFrame();
