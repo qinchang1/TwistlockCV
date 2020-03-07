@@ -136,6 +136,7 @@ public:
     QLabel *label_21;
     QPushButton *pushButton_7;
     QPushButton *pushButton;
+    QPushButton *pushButton_8;
     QGroupBox *groupBox_2;
     QPushButton *display_Button;
     QPushButton *start_Button;
@@ -624,6 +625,9 @@ public:
         pushButton = new QPushButton(groupBox);
         pushButton->setObjectName(QStringLiteral("pushButton"));
         pushButton->setGeometry(QRect(300, 20, 101, 31));
+        pushButton_8 = new QPushButton(groupBox);
+        pushButton_8->setObjectName(QStringLiteral("pushButton_8"));
+        pushButton_8->setGeometry(QRect(10, 90, 161, 31));
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(1320, 570, 121, 321));
@@ -877,6 +881,7 @@ public:
         label_21->setText(QApplication::translate("CvSystemClass", "none", Q_NULLPTR));
         pushButton_7->setText(QApplication::translate("CvSystemClass", "\344\270\211\346\214\207\346\216\247\345\210\266", Q_NULLPTR));
         pushButton->setText(QApplication::translate("CvSystemClass", "\347\224\265\346\272\220\345\274\200\345\205\263", Q_NULLPTR));
+        pushButton_8->setText(QApplication::translate("CvSystemClass", "Socket\351\200\232\344\277\241", Q_NULLPTR));
         groupBox_2->setTitle(QApplication::translate("CvSystemClass", "\345\237\272\346\234\254\346\223\215\344\275\234", Q_NULLPTR));
         display_Button->setText(QApplication::translate("CvSystemClass", "\350\247\206\351\242\221\n"
 "\345\257\274\345\205\245", Q_NULLPTR));

@@ -388,7 +388,7 @@ void CvSystem::showSplitImg1() {
 		ui.ceny_label_1->setText(temp);*/
 		temp.sprintf("%.3f", contour1_l.angle);
 		ui.angle_label_1->setText(temp);
-		ui.label_B->setText("90.032");
+		ui.label_B->setText("0.000");
 	}
 	if (!contour1_r.isEmpty()) {
 		displayImage(contour1_r.outImg, ui.rightFrame_Label_1, 0.5);
@@ -410,7 +410,7 @@ void CvSystem::showSplitImg2() {
 		ui.ceny_label_2->setText(temp);*/
 		temp.sprintf("%.3f", contour2_l.angle);
 		ui.angle_label_2->setText(temp);
-		ui.label_A->setText("88.251");
+		ui.label_A->setText("0.000");
 	}
 	if (!contour2_r.isEmpty()) {
 		displayImage(contour2_r.outImg, ui.rightFrame_Label_2, 0.5);
