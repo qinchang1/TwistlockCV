@@ -39,6 +39,7 @@ public:
     QAction *preSet_Action;
     QAction *actions;
     QAction *multiSet_action;
+    QAction *location_action;
     QWidget *centralWidget;
     QLabel *label;
     QLabel *displayStatus_Label;
@@ -190,6 +191,8 @@ public:
         actions->setObjectName(QStringLiteral("actions"));
         multiSet_action = new QAction(CvSystemClass);
         multiSet_action->setObjectName(QStringLiteral("multiSet_action"));
+        location_action = new QAction(CvSystemClass);
+        location_action->setObjectName(QStringLiteral("location_action"));
         centralWidget = new QWidget(CvSystemClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         label = new QLabel(centralWidget);
@@ -764,6 +767,8 @@ public:
         mainToolBar->addAction(paraSet_Action);
         mainToolBar->addSeparator();
         mainToolBar->addAction(multiSet_action);
+        mainToolBar->addSeparator();
+        mainToolBar->addAction(location_action);
 
         retranslateUi(CvSystemClass);
 
@@ -783,6 +788,7 @@ public:
         preSet_Action->setText(QApplication::translate("CvSystemClass", "\351\242\204\345\244\204\347\220\206\345\217\202\346\225\260", Q_NULLPTR));
         actions->setText(QApplication::translate("CvSystemClass", "\345\205\263\344\272\216", Q_NULLPTR));
         multiSet_action->setText(QApplication::translate("CvSystemClass", "\345\244\232\347\233\256\350\256\276\347\275\256", Q_NULLPTR));
+        location_action->setText(QApplication::translate("CvSystemClass", "\345\256\232\344\275\215\346\265\213\350\257\225", Q_NULLPTR));
         label->setText(QApplication::translate("CvSystemClass", "\350\247\206\351\242\221\350\276\223\345\205\245\357\274\210\344\270\273\346\221\204\357\274\211", Q_NULLPTR));
         displayStatus_Label->setText(QApplication::translate("CvSystemClass", "RGB\345\233\276\345\203\217", Q_NULLPTR));
         videoLabel->setText(QApplication::translate("CvSystemClass", "\350\247\206\351\242\221\350\276\223\345\205\245", Q_NULLPTR));

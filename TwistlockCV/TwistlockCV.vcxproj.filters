@@ -57,6 +57,9 @@
     <ClCompile Include="multi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="loca.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="CvSystem.h">
@@ -74,6 +77,9 @@
     <QtMoc Include="multi.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="loca.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="CvSystem.ui">
@@ -86,6 +92,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Multi.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Loca.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

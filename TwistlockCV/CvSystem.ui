@@ -2154,6 +2154,8 @@ background-color: rgb(200, 200, 200);</string>
    <addaction name="paraSet_Action"/>
    <addaction name="separator"/>
    <addaction name="multiSet_action"/>
+   <addaction name="separator"/>
+   <addaction name="location_action"/>
   </widget>
   <action name="new_action">
    <property name="text">
@@ -2183,6 +2185,11 @@ background-color: rgb(200, 200, 200);</string>
   <action name="multiSet_action">
    <property name="text">
     <string>多目设置</string>
+   </property>
+  </action>
+  <action name="location_action">
+   <property name="text">
+    <string>定位测试</string>
    </property>
   </action>
  </widget>

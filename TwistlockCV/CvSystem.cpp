@@ -90,6 +90,10 @@ void CvSystem::on_multiSet_action_triggered() {
 	multiWin.show(); // 显示多目参数配置窗口
 }
 
+void CvSystem::on_location_action_triggered() {
+	locaWin.show();
+}
+
 //********************************************************//
 //****************** Button Function *********************//
 //********************************************************//
