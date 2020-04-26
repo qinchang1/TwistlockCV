@@ -308,6 +308,10 @@ void CvSystem::displayImage(Mat &src, QLabel *label, double ratio,bool isGray){
 }
 
 void CvSystem::outputFrame(){
+
+	// capture1.open("500_450_-50_1.jpg"); // ≤‚ ‘Õº∆¨ ‰»Î
+	// capture2.open("500_450_-50_2.jpg"); // ≤‚ ‘Õº∆¨ ‰»Î
+
 	readFrame(capture1, frame1,ui.videoLabel,bin1);//input camera1
 	if (capType2){
 		readFrame(capture2, frame2, ui.videoLabel_2,bin2);//input camera2
